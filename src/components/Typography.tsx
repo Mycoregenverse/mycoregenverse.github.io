@@ -24,17 +24,3 @@ export function SectionHeader({ label, className = '' }: SectionHeaderProps) {
   );
 }
 
-export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
-  return (
-    <div className="mb-20 pt-32">
-      <h1 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tighter uppercase mb-6">
-        {title}
-      </h1>
-      {subtitle && (
-        <p className="font-mono text-sm md:text-base tracking-widest text-muted-foreground max-w-2xl leading-relaxed">
-          {subtitle}
-        </p>
-      )}
-    </div>
-  );
-}

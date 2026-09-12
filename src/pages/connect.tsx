@@ -14,7 +14,10 @@ export default function Connect() {
       <div className="px-6 md:px-12 lg:px-24 pb-32 flex-grow flex flex-col">
       <div className="max-w-4xl mx-auto w-full flex-grow flex flex-col justify-center pt-32">
         <FadeIn>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tighter uppercase mb-12 whitespace-pre-line">
+          <h1
+            className="font-display tracking-tighter uppercase mb-12 whitespace-pre-line"
+            style={{ fontSize: 'clamp(2rem, 11vw, 7rem)', lineHeight: 1.05 }}
+          >
             {c.title}
           </h1>
         </FadeIn>
@@ -72,7 +75,9 @@ export default function Connect() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 right-0 w-[40vw] h-[40vw] bg-white/5 blur-[120px] rounded-full pointer-events-none -z-10 translate-x-1/4 translate-y-1/4" />
+      {/* brilho de canto: só sangra para baixo — deslocar no eixo X criava
+          barra de rolagem horizontal em telas estreitas */}
+      <div className="fixed bottom-0 right-0 w-[40vw] h-[40vw] bg-white/5 blur-[120px] rounded-full pointer-events-none -z-10 translate-y-1/4" />
       </div>
       <CinemaFooter />
     </motion.div>
