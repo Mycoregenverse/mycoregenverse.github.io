@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-label="Mycoregenverse — inteligência micelial, sistemas regenerativos, design bio-civilizacional">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="46%" r="62%">
+      <stop offset="0%" stop-color="#0e1a19"/>
+      <stop offset="60%" stop-color="#0a0f0f"/>
+      <stop offset="100%" stop-color="#070808"/>
+    </radialGradient>
+    <linearGradient id="thread" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5B8F8A" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#7FC9C0" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#A8E5DD" stop-opacity=".2"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+
+    <style>
+      .t { fill:none; stroke:url(#thread); stroke-linecap:round;
+           stroke-dasharray:1400; stroke-dashoffset:1400;
+           animation: draw 7s cubic-bezier(.16,1,.3,1) infinite; }
+      @keyframes draw {
+        0%   { stroke-dashoffset:1400; opacity:0 }
+        14%  { opacity:.95 }
+        62%  { stroke-dashoffset:0;    opacity:.95 }
+        86%  { stroke-dashoffset:0;    opacity:0 }
+        100% { stroke-dashoffset:0;    opacity:0 }
+      }
+      .n { fill:#A8E5DD; animation: pulse 3.4s ease-in-out infinite; }
+      @keyframes pulse {
+        0%,100% { opacity:.20; transform:scale(.7) }
+        50%     { opacity:.95; transform:scale(1.25) }
+      }
+      .wm { font-family: "Segoe UI", Helvetica, Arial, sans-serif; font-weight:700;
+            letter-spacing:.30em; fill:#F2F5F4;
+            opacity:0; animation: rise 7s cubic-bezier(.16,1,.3,1) infinite; }
+      .sub { font-family: "Consolas","SF Mono",Menlo,monospace; letter-spacing:.42em;
+             fill:#5B8F8A; opacity:0; animation: rise 7s cubic-bezier(.16,1,.3,1) .5s infinite; }
+      .tag { font-family: "Consolas","SF Mono",Menlo,monospace; letter-spacing:.20em;
+             fill:#6D7B79; opacity:0; animation: rise 7s cubic-bezier(.16,1,.3,1) .9s infinite; }
+      @keyframes rise {
+        0%   { opacity:0; transform:translateY(14px) }
+        22%  { opacity:1; transform:translateY(0) }
+        80%  { opacity:1; transform:translateY(0) }
+        100% { opacity:0; transform:translateY(0) }
+      }
+      .rule { stroke:#5B8F8A; stroke-width:1.4; stroke-dasharray:150; stroke-dashoffset:150;
+              animation: rule 7s cubic-bezier(.16,1,.3,1) .35s infinite; }
+      @keyframes rule {
+        0%,8% { stroke-dashoffset:150; opacity:0 }
+        30%   { stroke-dashoffset:0;   opacity:1 }
+        80%   { stroke-dashoffset:0;   opacity:1 }
+        100%  { stroke-dashoffset:0;   opacity:0 }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .t,.n,.wm,.sub,.tag,.rule { animation:none; opacity:.9; stroke-dashoffset:0; transform:none }
+      }
+    </style>
+  </defs>
+
+  <rect width="1280" height="440" fill="url(#glow)"/>
+
+  <!-- rede micelial: fios que se desenham -->
+  <g filter="url(#soft)" opacity=".55">
+    <path class="t" style="animation-delay:0s"    d="M-20 300 C 160 280, 250 214, 400 228 S 660 300, 810 252 S 1090 180, 1300 214" stroke-width="1.5"/>
+    <path class="t" style="animation-delay:.5s"   d="M-20 356 C 200 330, 300 372, 470 344 S 720 258, 900 300 S 1140 350, 1300 318" stroke-width="1.2"/>
+    <path class="t" style="animation-delay:1.1s"  d="M-20 152 C 210 190, 330 122, 520 156 S 760 214, 940 168 S 1150 118, 1300 148" stroke-width="1.1"/>
+    <path class="t" style="animation-delay:1.7s"  d="M120 440 C 190 356, 250 300, 258 214 S 300 108, 360 -10" stroke-width=".9"/>
+    <path class="t" style="animation-delay:2.2s"  d="M1080 450 C 1010 352, 986 292, 1002 206 S 980 96, 930 -10" stroke-width=".9"/>
+    <path class="t" style="animation-delay:2.7s"  d="M-20 232 C 240 250, 420 336, 640 330 S 980 258, 1300 276" stroke-width=".8"/>
+  </g>
+
+  <!-- nós -->
+  <g>
+    <circle class="n" cx="400"  cy="228" r="3.2" style="animation-delay:.2s;  transform-origin:400px 228px"/>
+    <circle class="n" cx="810"  cy="252" r="2.8" style="animation-delay:.9s;  transform-origin:810px 252px"/>
+    <circle class="n" cx="258"  cy="214" r="2.4" style="animation-delay:1.5s; transform-origin:258px 214px"/>
+    <circle class="n" cx="1002" cy="206" r="2.6" style="animation-delay:2.1s; transform-origin:1002px 206px"/>
+    <circle class="n" cx="640"  cy="330" r="2.2" style="animation-delay:2.6s; transform-origin:640px 330px"/>
+    <circle class="n" cx="520"  cy="156" r="2.0" style="animation-delay:3.2s; transform-origin:520px 156px"/>
+  </g>
+
+  <!-- marcador -->
+  <g transform="translate(408 176)">
+    <line class="rule" x1="0" y1="0" x2="56" y2="0"/>
+    <text class="sub" x="74" y="4" font-size="12">PONTO DE TRANSMISSÃO</text>
+  </g>
+
+  <text class="wm" x="640" y="256" text-anchor="middle" font-size="54">MYCOREGENVERSE</text>
+
+  <text class="tag" x="640" y="306" text-anchor="middle" font-size="13">
+    INTELIGÊNCIA MICELIAL · SISTEMAS REGENERATIVOS · DESIGN BIO-CIVILIZACIONAL
+  </text>
+</svg>

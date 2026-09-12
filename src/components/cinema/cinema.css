@@ -1,0 +1,1553 @@
+/* ------------------------------------------------------------------ *
+ *  Mycoregenverse — camada cinematográfica (aditiva, reversível)
+ *  Tokens escopados em .cinema-root. Não toca a baseline global.
+ * ------------------------------------------------------------------ */
+
+.cinema-root {
+  /* — cor — (baseline preservada + 1 acento "sinal") */
+  --c-bg: hsl(0 0% 3%);
+  --c-bg-2: hsl(0 0% 5%);
+  --c-fg: hsl(0 0% 90%);
+  --c-muted: hsl(0 0% 58%);
+  --c-faint: hsl(0 0% 40%);
+  --c-line: hsl(0 0% 14%);
+  --c-line-2: hsl(0 0% 20%);
+  /* aliases do token global (index.css) — uma fonte de verdade só */
+  --c-signal: var(--signal);
+  --c-signal-dim: var(--signal-dim);
+
+  /* — escala tipográfica fixa (fluida, mas travada nos extremos) — */
+  --step--1: clamp(0.75rem, 0.72rem + 0.14vw, 0.84rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.24vw, 1.06rem);
+  --step-1: clamp(1.12rem, 1rem + 0.6vw, 1.45rem);
+  --step-2: clamp(1.45rem, 1.2rem + 1.3vw, 2.3rem);
+  --step-3: clamp(1.9rem, 1.4rem + 2.6vw, 3.4rem);
+  --step-4: clamp(2.4rem, 1.5rem + 4.6vw, 5rem);
+
+  /* — grade de espaço de 8px — */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 40px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-10: 80px;
+  --s-12: 96px;
+  --s-16: 128px;
+  --s-20: 160px;
+  --s-24: 192px;
+
+  /* — movimento padronizado — */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.7s;
+  --dur-fast: 0.4s;
+
+  --wrap: 1240px;
+  --gutter: clamp(20px, 5vw, 96px);
+
+  color: var(--c-fg);
+  background: var(--c-bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.cinema-root ::selection {
+  background: hsl(174 45% 74% / 0.22);
+  color: #fff;
+}
+
+/* âncoras da navegação fixa não passam por baixo do header */
+.cinema-root section[id],
+.cinema-root [id='topo'] {
+  scroll-margin-top: 84px;
+}
+
+/* fallback tipográfico até a Syncopate carregar (evita salto de layout) */
+@font-face {
+  font-family: 'Syncopate Fallback';
+  src: local('Arial Narrow'), local('Arial');
+  size-adjust: 118%;
+  ascent-override: 80%;
+  descent-override: 20%;
+}
+
+/* ---------- primitivos de tipografia ---------- */
+.cinema-root .display {
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  font-weight: 700;
+}
+.cinema-root .mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.cinema-root .label {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+/* ---------- marcador de seção  [ TEXTO ] ─────── ---------- */
+.cinema-root .marker {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+/* ---------- layout ---------- */
+.cinema-root .wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.cinema-root .section {
+  /* respiro curto: as seções se encadeiam em sequência, como hero → sinal */
+  padding-block: clamp(var(--s-6), 6vw, var(--s-10));
+}
+
+/* ---------- kit de movimento (vanilla) ---------- */
+.cinema-root .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.cinema-root .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- WordReveal ---------- */
+.cinema-root .wordreveal .wr-w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  transition: transform 0.55s var(--ease-out), opacity 0.55s var(--ease-out);
+}
+.cinema-root .wordreveal.is-in .wr-w {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Statement (frase-manifesto) ---------- */
+.cinema-root .statement {
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-size: var(--step-3);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.cinema-root .statement.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .wordreveal .wr-w { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cinema-root .statement { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---------- página Manifesto ---------- */
+.cinema-root .mf {
+  --mf-wrap: 780px;
+}
+.cinema-root .mf-wrap {
+  width: 100%;
+  max-width: var(--mf-wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+/* abertura: seção alta e presa (sticky) — o scroll dá zoom na imagem,
+   e só depois a página desce. */
+.cinema-root .mf-open {
+  position: relative;
+  height: 220vh; /* 100vh visível + 120vh de orçamento de scroll pro zoom */
+}
+/* variante alta: zoom por ~2 telas, depois ~1 tela pros textos surgirem */
+.cinema-root .mf-open--tall {
+  height: 340vh;
+}
+.cinema-root .mf-open__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.cinema-root .mf-open__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.cinema-root .mf-open__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  transform: scale(1.06);
+  transform-origin: center 42%;
+  will-change: transform;
+  filter: grayscale(1) contrast(1.08) brightness(0.6);
+}
+/* Âncora alta — para imagens cuja faixa de interesse vive no topo do quadro.
+   Sem isso o zoom (até 1.44) afunda no trecho escuro e o título acaba sobre
+   preto liso; a imagem precisa seguir legível atrás do texto. */
+.cinema-root .mf-open--anchor-top .mf-open__media img {
+  object-position: center 8%;
+}
+.cinema-root .mf-open__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    hsl(0 0% 2% / 0.5) 0%,
+    hsl(0 0% 2% / 0.16) 34%,
+    hsl(0 0% 2% / 0.58) 72%,
+    hsl(0 0% 3% / 0.99) 100%
+  );
+}
+.cinema-root .mf-open__inner {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(104px, 17vh, 200px) clamp(var(--s-8), 10vh, var(--s-16));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .mf-open { height: auto; }
+  .cinema-root .mf-open__sticky { position: relative; height: auto; min-height: 100vh; }
+  .cinema-root .mf-open__inner { position: relative; inset: auto; }
+}
+.cinema-root .mf-hero__title {
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  font-size: clamp(2.3rem, 10vw, 4.8rem);
+}
+.cinema-root .mf-hero__sub {
+  margin-top: var(--s-4);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .mf-open__media img { transform: scale(1.05) !important; }
+}
+
+.cinema-root .mf-sec {
+  padding-block: clamp(var(--s-16), 14vh, var(--s-24));
+}
+
+.cinema-root .mf-marker {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-signal-dim);
+  margin-bottom: var(--s-8);
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.cinema-root .mf-marker::before {
+  content: '';
+  width: clamp(24px, 6vw, 72px);
+  height: 1px;
+  background: var(--c-signal-dim);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out) 0.1s;
+}
+.cinema-root .mf-marker.is-in::before { transform: scaleX(1); }
+
+.cinema-root .mf-h {
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.6rem);
+  margin-bottom: var(--s-8);
+}
+.cinema-root .mf-lead {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: var(--step-2);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--c-fg);
+  margin-bottom: var(--s-8);
+}
+.cinema-root .mf-body p {
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--c-muted);
+  margin: 0 0 var(--s-5);
+}
+.cinema-root .mf-body p:last-child { margin-bottom: 0; }
+.cinema-root .mf-body strong { color: var(--c-fg); font-weight: 600; }
+
+/* nota de transparência ("a etiqueta à vista") */
+.cinema-root .mf-note {
+  border-left: 2px solid var(--c-signal-dim);
+  padding: var(--s-2) 0 var(--s-2) var(--s-5);
+  margin-top: var(--s-8);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: var(--c-muted);
+}
+
+/* números em destaque */
+.cinema-root .mf-figs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
+  margin: var(--s-10) 0;
+  padding-block: var(--s-8);
+}
+.cinema-root .mf-fig__n {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  letter-spacing: -0.03em;
+  color: var(--c-signal);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cinema-root .mf-fig__l {
+  margin-top: var(--s-2);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  line-height: 1.6;
+}
+
+/* listas nomeadas (restrições / princípios) */
+.cinema-root .mf-list {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+}
+.cinema-root .mf-list > li {
+  padding: var(--s-8) 0;
+}
+.cinema-root .mf-list__t {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: var(--step-1);
+  margin-bottom: var(--s-3);
+}
+.cinema-root .mf-list__d {
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+
+/* áreas de prática numeradas */
+.cinema-root .mf-areas { counter-reset: mfa; }
+.cinema-root .mf-area {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-5) var(--s-6);
+  padding: var(--s-10) 0;
+}
+.cinema-root .mf-area__n {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step-1);
+  color: var(--c-faint);
+}
+.cinema-root .mf-area__t {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: var(--step-1);
+  align-self: center;
+}
+.cinema-root .mf-area__d {
+  grid-column: 2;
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+
+.cinema-root .mf-portrait {
+  width: min(320px, 60vw);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  filter: grayscale(1) contrast(1.05);
+  margin-bottom: var(--s-6);
+}
+.cinema-root .mf-portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 700px) {
+  .cinema-root .mf-figs { grid-template-columns: 1fr; gap: var(--s-6); }
+  .cinema-root .mf-area { grid-template-columns: 1fr; gap: var(--s-2); }
+  .cinema-root .mf-area__d { grid-column: 1; margin-top: var(--s-2); }
+}
+
+/* ---------- hero cinematográfico ---------- */
+.cinema-root .cine-hero {
+  position: relative;
+  width: 100%;
+  height: 480vh; /* 460–500vh: janela de scrub */
+}
+.cinema-root .cine-hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+.cinema-root .cine-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.cinema-root video.cine-hero__media {
+  pointer-events: none;
+}
+.cinema-root .cine-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    hsl(0 0% 2% / 0.62) 0%,
+    hsl(0 0% 2% / 0.12) 30%,
+    hsl(0 0% 2% / 0.32) 62%,
+    hsl(0 0% 2% / 0.95) 100%
+  );
+}
+.cinema-root .cine-hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 42%,
+    transparent 45%,
+    hsl(0 0% 0% / 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.cinema-root .cine-hero__ui {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--gutter);
+  padding-bottom: clamp(var(--s-16), 16vh, var(--s-24));
+}
+.cinema-root .cine-hero__headline {
+  position: relative;
+  /* dimensionada pela linha MAIS LONGA ("Um entre milhões." em Syncopate,
+     que é uma fonte muito larga) — precisa caber na viewport sem quebrar */
+  font-size: clamp(1.9rem, 5.1vw, 4.4rem);
+  height: 1.5em;
+  line-height: 1;
+  margin-bottom: var(--s-4);
+}
+.cinema-root .cine-hero__headline h1 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap; /* carga estrutural — não remover */
+  font-size: 1em;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  will-change: opacity;
+}
+/* "Um nó." é curto — pode respirar maior */
+.cinema-root .cine-hero__headline h1:first-child {
+  font-size: 1.6em;
+}
+.cinema-root .cine-hero__sub {
+  max-width: 42ch;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: hsl(0 0% 82%);
+}
+.cinema-root .cine-hero__coda {
+  margin-top: var(--s-3);
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  font-size: var(--step-1);
+  letter-spacing: -0.01em;
+  color: var(--c-signal);
+}
+
+/* contador de nós + medidor de sinal (o detalhe temático) */
+.cinema-root .cine-hud {
+  position: absolute;
+  top: clamp(80px, 12vh, 140px);
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-4);
+  pointer-events: none;
+}
+.cinema-root .cine-hud__count .n {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+  letter-spacing: 0.06em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.cinema-root .cine-hud__count .k {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-signal-dim);
+  display: block;
+  margin-bottom: 6px;
+}
+.cinema-root .cine-hud__meter {
+  text-align: right;
+}
+.cinema-root .cine-hud__meter .k {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  color: var(--c-signal-dim);
+  display: block;
+  margin-bottom: var(--s-1);
+}
+.cinema-root .cine-hud__track {
+  margin-left: auto;
+  width: 2px;
+  height: clamp(90px, 22vh, 220px);
+  background: hsl(0 0% 100% / 0.12);
+  position: relative;
+  overflow: hidden;
+}
+.cinema-root .cine-hud__fill {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, var(--c-signal-dim), var(--c-signal));
+}
+
+.cinema-root .cine-hero__hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s-6);
+  transform: translateX(-50%);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: hsl(0 0% 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+}
+.cinema-root .cine-hero__hint span:last-child {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(to bottom, hsl(0 0% 70%), transparent);
+  animation: cine-drop 1.8s var(--ease) infinite;
+}
+@keyframes cine-drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  40% { transform: scaleY(1); transform-origin: top; }
+  60% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ---------- cena contida (scroll-scene em caixa) ---------- */
+.cinema-root .cine-scene {
+  position: relative;
+  width: 100%;
+  height: 340vh;
+}
+.cinema-root .cine-scene__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  padding: clamp(72px, 12vh, 120px) var(--gutter) var(--s-8);
+  background: var(--c-bg);
+}
+.cinema-root .cine-scene__marker {
+  align-self: flex-start;
+  width: 100%;
+  max-width: 1360px;
+}
+.cinema-root .cine-scene__box {
+  position: relative;
+  width: min(92vw, 1360px);
+  aspect-ratio: 16 / 9;
+  max-height: 66vh;
+  overflow: hidden;
+  background: #000;
+  container-type: size; /* tipografia medida na CAIXA, não na viewport */
+  border: 1px solid var(--c-line);
+}
+.cinema-root .cine-scene__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.cinema-root video.cine-scene__media { pointer-events: none; }
+.cinema-root .cine-scene__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    hsl(0 0% 0% / 0.86) 0%,
+    hsl(0 0% 0% / 0.28) 34%,
+    transparent 60%
+  );
+}
+.cinema-root .cine-scene__headline {
+  position: absolute;
+  left: 4cqw;
+  bottom: 5cqh;
+  right: 4cqw;
+  height: 1.15em;
+  font-size: clamp(1rem, 5cqw, 2.7rem);
+}
+.cinema-root .cine-scene__headline span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap; /* carga estrutural */
+  letter-spacing: -0.04em;
+  line-height: 1;
+  will-change: opacity;
+}
+
+.cinema-root .cine-scene__detail {
+  width: min(92vw, 1360px);
+  display: flex;
+  justify-content: space-between;
+}
+.cinema-root .cine-scene__count .k,
+.cinema-root .cine-scene__sun .k {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-signal-dim);
+  margin-bottom: 6px;
+}
+.cinema-root .cine-scene__count .n {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  letter-spacing: 0.06em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.cinema-root .cine-scene__sun { margin-left: auto; text-align: right; }
+.cinema-root .cine-scene__horizon {
+  display: block;
+  position: relative;
+  width: clamp(120px, 22vw, 260px);
+  height: 1px;
+  margin-left: auto;
+  background: var(--c-line-2);
+  overflow: visible;
+}
+.cinema-root .cine-scene__disc {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--c-signal) 55%, transparent 100%);
+}
+.cinema-root .cine-scene__mtrack {
+  display: block;
+  width: clamp(120px, 22vw, 260px);
+  height: 2px;
+  margin-left: auto;
+  background: hsl(0 0% 100% / 0.12);
+  position: relative;
+  overflow: hidden;
+}
+.cinema-root .cine-scene__mfill {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(to left, var(--c-signal), var(--c-signal-dim));
+}
+
+.cinema-root .cine-scene__after {
+  padding-block: clamp(var(--s-6), 6vw, var(--s-10)) 0;
+}
+
+/* variante full-bleed: vídeo ocupa a viewport, texto sobreposto */
+.cinema-root .cine-scene--bleed .cine-scene__sticky {
+  padding: 0;
+  display: block;
+}
+.cinema-root .cine-scene--bleed .cine-scene__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cinema-root .cine-scene--bleed .cine-scene__scrim {
+  background: radial-gradient(
+      120% 80% at 50% 55%,
+      transparent 30%,
+      hsl(0 0% 2% / 0.55) 100%
+    ),
+    linear-gradient(to bottom, hsl(0 0% 2% / 0.4) 0%, transparent 30%, hsl(0 0% 2% / 0.7) 100%);
+}
+.cinema-root .cine-scene__bleed-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  text-align: center;
+}
+/* em bleed o sticky perde o padding (display:block), então o marcador precisa
+   se posicionar sozinho — senão encosta no topo, por baixo da nav fixa */
+.cinema-root .cine-scene--bleed .cine-scene__marker {
+  position: absolute;
+  z-index: 3;
+  top: clamp(84px, 12vh, 132px);
+  left: var(--gutter);
+  right: var(--gutter);
+  width: auto;
+  max-width: none;
+  color: var(--c-signal-dim);
+}
+
+/* headline no modo full-bleed: duas linhas empilhadas, centralizadas,
+   opacidade amarrada ao scroll (a frase se completa conforme rola) */
+.cinema-root .cine-scene--bleed .cine-scene__headline {
+  position: static;
+  inset: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18em;
+  font-size: clamp(1rem, 4.6vw, 3.4rem);
+  text-align: center;
+}
+.cinema-root .cine-scene--bleed .cine-scene__headline span {
+  position: static;
+  color: #fff;
+  text-shadow: 0 2px 44px hsl(0 0% 0% / 0.75);
+  transition: opacity 0.25s linear;
+}
+.cinema-root .cine-scene--bleed .cine-scene__detail {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--s-6);
+  z-index: 3;
+}
+
+@media (max-width: 600px) {
+  .cinema-root .cine-scene__box { max-height: 52vh; }
+  .cinema-root .cine-scene__headline { font-size: clamp(0.85rem, 6cqw, 1.6rem); }
+}
+
+/* ---------- tela de carregamento ---------- */
+.cinema-root .cine-load {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-5);
+  transition: opacity 0.8s var(--ease), visibility 0.8s;
+}
+.cinema-root .cine-load[data-done='true'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.cinema-root .cine-load__mark {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--step-1);
+}
+.cinema-root .cine-load__bar {
+  width: min(240px, 60vw);
+  height: 1px;
+  background: hsl(0 0% 100% / 0.14);
+  position: relative;
+  overflow: hidden;
+}
+.cinema-root .cine-load__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-signal);
+  transform: translateX(-100%);
+  animation: cine-scan 1.4s var(--ease) infinite;
+}
+@keyframes cine-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.cinema-root .cine-load__note {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-faint);
+}
+
+/* ---------- navegação ---------- */
+.cinema-root .cine-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-3) var(--gutter);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.cinema-root .cine-nav a,
+.cinema-root .cine-nav button { pointer-events: auto; }
+/* depois do hero: vira barra sólida, sem mix-blend (some a sobreposição no conteúdo) */
+/* PREVIEW — efeito de vidro líquido no fundo do header, ainda não definitivo */
+.cinema-root .cine-nav.is-scrolled {
+  /* base .cine-nav is already position:fixed — don't re-declare here, it
+     would win by specificity and un-fix the nav once scrolled */
+  mix-blend-mode: normal;
+  background-color: hsl(0 0% 4% / 0.42);
+  background-image:
+    radial-gradient(140% 220% at 12% -60%, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015) 45%, rgba(0, 0, 0, 0.1)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: 100% 100%, 100% 100%, 220px 220px;
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 10px 30px -5px rgba(0, 0, 0, 0.4);
+  border-bottom-color: transparent;
+}
+.cinema-root .cine-nav.is-scrolled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 55%,
+    transparent 70%
+  );
+  background-size: 250% 250%;
+  animation: glass-sheen 14s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .cine-nav.is-scrolled::after {
+    animation: none;
+    display: none;
+  }
+}
+.cinema-root .cine-nav.is-scrolled .cine-nav__mark { color: var(--c-fg); }
+.cinema-root .cine-nav.is-scrolled .cine-nav__links a { color: var(--c-muted); }
+.cinema-root .cine-nav.is-scrolled .cine-nav__links a:hover { color: var(--c-fg); }
+.cinema-root .cine-nav.is-scrolled .cine-nav__burger { color: var(--c-fg); }
+.cinema-root .cine-nav__mark {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: var(--step-0);
+  color: #fff;
+  text-decoration: none;
+}
+.cinema-root .cine-nav__links {
+  display: flex;
+  gap: var(--s-5);
+}
+.cinema-root .cine-nav__links a {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: hsl(0 0% 100% / 0.6);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+.cinema-root .cine-nav__links a:hover { color: #fff; }
+.cinema-root .cine-nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+.cinema-root .cine-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+}
+.cinema-root .cine-lang button {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 2px;
+  cursor: pointer;
+  color: hsl(0 0% 100% / 0.4);
+  font: inherit;
+  letter-spacing: inherit;
+  transition: color var(--dur-fast) var(--ease);
+}
+.cinema-root .cine-lang button[data-active='true'] { color: #fff; }
+.cinema-root .cine-lang__sep { color: hsl(0 0% 100% / 0.25); }
+.cinema-root .cine-nav.is-scrolled .cine-lang button { color: var(--c-faint); }
+.cinema-root .cine-nav.is-scrolled .cine-lang button[data-active='true'] { color: var(--c-fg); }
+
+.cinema-root .cine-nav__burger {
+  display: none;
+  pointer-events: auto;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+.cinema-root .cine-nav__panel {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--s-4);
+  padding: var(--gutter);
+}
+.cinema-root .cine-nav__panel a {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--step-3);
+  color: var(--c-fg);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.cinema-root .cine-nav__panel button {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--gutter);
+  background: none;
+  border: 0;
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+
+/* ---------- blocos de conteúdo ---------- */
+.cinema-root .band {
+  position: relative;
+  height: clamp(320px, 60vh, 620px);
+  overflow: hidden;
+}
+.cinema-root .band img {
+  position: absolute;
+  inset: -12% 0;
+  width: 100%;
+  height: 124%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.15) brightness(0.82);
+  will-change: transform;
+}
+.cinema-root .band__cap {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--s-6);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: hsl(0 0% 88%);
+  max-width: 34ch;
+  line-height: 2;
+  text-shadow: 0 2px 20px #000;
+}
+
+.cinema-root .lede {
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--step-2);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+.cinema-root .prose p {
+  font-size: var(--step-1);
+  line-height: 1.7;
+  color: var(--c-muted);
+  margin: 0 0 var(--s-4);
+  max-width: 62ch;
+}
+.cinema-root .prose strong { color: var(--c-fg); font-weight: 600; }
+
+.cinema-root .grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--c-line);
+  border: 1px solid var(--c-line);
+}
+.cinema-root .grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-6);
+}
+.cinema-root .cell {
+  background: var(--c-bg);
+  padding: var(--s-6);
+  transition: background var(--dur-fast) var(--ease);
+}
+.cinema-root .cell:hover { background: var(--c-bg-2); }
+.cinema-root .cell__n {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step-2);
+  color: var(--c-faint);
+  margin-bottom: var(--s-4);
+}
+.cinema-root .cell__t {
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--step-0);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--s-2);
+}
+.cinema-root .cell__d {
+  font-size: var(--step--1);
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+
+/* linhas (arquivo / notas) */
+.cinema-root .row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-2);
+  padding: var(--s-5) 0;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.cinema-root .row__meta {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-faint);
+}
+.cinema-root .row__t {
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--step-1);
+  letter-spacing: -0.02em;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.cinema-root .row:hover .row__t { transform: translateX(10px); }
+.cinema-root .tag {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  border: 1px solid var(--c-line-2);
+  padding: 5px 10px;
+  color: var(--c-muted);
+}
+
+/* faq nativo */
+.cinema-root .faq details {
+  padding: var(--s-4) 0;
+}
+.cinema-root .faq summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  font-family: 'Syncopate', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: var(--step-0);
+  letter-spacing: -0.01em;
+}
+.cinema-root .faq summary::-webkit-details-marker { display: none; }
+.cinema-root .faq summary::after {
+  content: '+';
+  font-family: 'Space Mono', monospace;
+  color: var(--c-signal);
+}
+.cinema-root .faq details[open] summary::after { content: '−'; }
+.cinema-root .faq p {
+  margin: var(--s-3) 0 0;
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--c-muted);
+  max-width: 64ch;
+}
+
+.cinema-root .btn {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid hsl(0 0% 100% / 0.35);
+  padding: 16px 28px;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.cinema-root .btn:hover { background: #fff; color: #000; }
+
+.cinema-root .cine-foot {
+  padding: var(--s-12) var(--gutter) var(--s-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-6);
+  justify-content: space-between;
+  align-items: flex-end;
+}
+/* ocupa a linha inteira: o flex-wrap do rodapé joga para a própria faixa */
+.cinema-root .cine-foot__copy {
+  width: 100%;
+  margin: 0;
+  padding-top: var(--s-6);
+  color: var(--c-faint);
+  letter-spacing: 0.2em;
+}
+.cinema-root .cine-foot__mark {
+  font-family: 'Syncopate', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--step-2);
+  letter-spacing: -0.03em;
+}
+
+/* ---------- MÉTODO — "A Descida" (3 mergulhos full-bleed) ----------
+ * Deliberadamente fora da linguagem das outras cenas: sem caixa, abre e fecha
+ * em preto, título maior que o de qualquer outra seção, scrim pesado à esquerda
+ * (a coluna de leitura) em vez do scrim inferior padrão.                      */
+.cinema-root .mt-scene {
+  position: relative;
+  width: 100%;
+  height: 320vh;
+  background: var(--c-bg);
+}
+.cinema-root .mt-scene__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #000;
+}
+.cinema-root .mt-scene__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.cinema-root video.mt-scene__media {
+  pointer-events: none;
+}
+.cinema-root .mt-scene__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      90deg,
+      hsl(0 0% 2% / 0.94) 0%,
+      hsl(0 0% 2% / 0.78) 30%,
+      hsl(0 0% 2% / 0.22) 60%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      hsl(0 0% 2% / 0.6) 0%,
+      transparent 22%,
+      transparent 68%,
+      hsl(0 0% 2% / 0.66) 100%
+    );
+}
+.cinema-root .mt-scene__marker {
+  position: absolute;
+  z-index: 2;
+  top: clamp(84px, 12vh, 132px);
+  left: var(--gutter);
+  right: var(--gutter);
+  color: var(--c-signal-dim);
+}
+.cinema-root .mt-scene__ui {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(52ch, 46vw);
+}
+.cinema-root .mt-scene__head {
+  will-change: opacity, transform;
+}
+.cinema-root .mt-scene__n {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.32em;
+  color: var(--c-signal);
+  margin-bottom: var(--s-3);
+}
+.cinema-root .mt-scene__t {
+  margin: 0 0 var(--s-6);
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  /* a maior tipografia do site — é a assinatura da seção */
+  font-size: clamp(1.9rem, 5.4vw, 4.6rem);
+  color: #fff;
+  text-shadow: 0 2px 48px hsl(0 0% 0% / 0.8);
+}
+.cinema-root .mt-scene__body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--step-0);
+  line-height: 1.85;
+  color: hsl(0 0% 88%);
+  text-shadow: 0 1px 28px hsl(0 0% 0% / 0.9);
+}
+.cinema-root .mt-scene__beat {
+  display: inline;
+  will-change: opacity;
+  transition: opacity 0.2s linear;
+}
+.cinema-root .mt-scene__black {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #000;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .cinema-root .mt-scene__scrim {
+    background: linear-gradient(
+      to bottom,
+      hsl(0 0% 2% / 0.72) 0%,
+      transparent 24%,
+      hsl(0 0% 2% / 0.5) 52%,
+      hsl(0 0% 2% / 0.93) 100%
+    );
+  }
+  .cinema-root .mt-scene__ui {
+    left: var(--gutter);
+    right: var(--gutter);
+    top: auto;
+    bottom: clamp(var(--s-8), 12vh, var(--s-16));
+    transform: none;
+    width: auto;
+  }
+  .cinema-root .mt-scene__body {
+    max-width: none;
+    font-size: var(--step--1);
+    line-height: 1.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .mt-scene__beat { transition: none; }
+}
+
+/* ---------- carrossel "A Rede" (cartões 3D) ---------- */
+.cinema-root .rce {
+  position: relative;
+  margin-top: var(--s-10);
+}
+.cinema-root .rce-viewport {
+  position: relative;
+  outline: none;
+  overflow: hidden;
+  height: clamp(380px, 54vh, 560px);
+  touch-action: pan-y;
+}
+.cinema-root .rce-track {
+  position: relative;
+  height: 100%;
+  perspective: 1400px;
+}
+.cinema-root .rce-slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(640px, 78vw);
+  height: 100%;
+  transform-style: preserve-3d;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  will-change: transform, filter;
+}
+.cinema-root .rce-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--c-bg-2);
+  border: 1px solid var(--c-line);
+  cursor: grab;
+}
+.cinema-root .rce-card__bg {
+  position: absolute;
+  inset: -6%;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) contrast(1.1) brightness(0.72);
+  transition: filter 0.8s var(--ease);
+}
+.cinema-root .rce-slide[data-state='active'] .rce-card__bg {
+  filter: grayscale(0.3) contrast(1.08) brightness(0.86);
+}
+.cinema-root .rce-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, hsl(0 0% 0% / 0.15), hsl(0 0% 0% / 0.4) 48%, hsl(0 0% 0% / 0.86) 100%);
+}
+.cinema-root .rce-card__body {
+  position: absolute;
+  inset: auto var(--s-5) var(--s-5) var(--s-5);
+  z-index: 2;
+}
+.cinema-root .rce-card__n {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  color: var(--c-signal);
+  display: block;
+  margin-bottom: var(--s-2);
+}
+.cinema-root .rce-card__t {
+  font-family: 'Syncopate', 'Syncopate Fallback', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+  line-height: 1.15;
+  margin: 0 0 var(--s-2);
+  color: #fff;
+}
+.cinema-root .rce-card__d {
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: hsl(0 0% 82%);
+  max-width: 46ch;
+}
+.cinema-root .rce-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.cinema-root .rce-prev,
+.cinema-root .rce-next {
+  pointer-events: auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--c-line-2);
+  background: hsl(0 0% 100% / 0.06);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+.cinema-root .rce-prev:hover,
+.cinema-root .rce-next:hover {
+  background: hsl(0 0% 100% / 0.14);
+}
+.cinema-root .rce-prev {
+  margin-left: clamp(4px, 1vw, 12px);
+}
+.cinema-root .rce-next {
+  margin-right: clamp(4px, 1vw, 12px);
+}
+.cinema-root .rce-pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: var(--s-5);
+}
+.cinema-root .rce-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: hsl(0 0% 100% / 0.22);
+  border: 0;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.cinema-root .rce-dot[aria-selected='true'] {
+  background: var(--c-signal);
+  transform: scale(1.4);
+}
+.cinema-root .rce-progress {
+  max-width: 220px;
+  margin: var(--s-3) auto 0;
+  height: 2px;
+  background: hsl(0 0% 100% / 0.1);
+  overflow: hidden;
+}
+.cinema-root .rce-progress__bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--c-signal-dim), var(--c-signal));
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .rce-card__bg { transition: none; }
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 900px) {
+  .cinema-root .cine-nav__links { display: none; }
+  .cinema-root .cine-nav__right { gap: var(--s-3); }
+  .cinema-root .cine-nav__burger { display: block; }
+  .cinema-root .grid-3 { grid-template-columns: 1fr; }
+  .cinema-root .grid-2 { grid-template-columns: 1fr; gap: var(--s-8); }
+  .cinema-root .cine-hud__count .n { font-size: 1rem; }
+  .cinema-root .rce-slide { width: min(560px, 84vw); }
+}
+
+@media (max-width: 560px) {
+  .cinema-root .rce-viewport { height: clamp(320px, 60vh, 460px); }
+  .cinema-root .rce-slide { width: min(480px, 88vw); }
+  .cinema-root .rce-card__d { max-width: 34ch; }
+}
+
+@media (max-width: 600px) {
+  /* Syncopate uppercase é largo — a headline precisa caber sem quebrar */
+  .cinema-root .cine-hero__headline { font-size: clamp(1rem, 4.7vw, 2.2rem); }
+  .cinema-root .cine-hero__headline h1 { letter-spacing: -0.05em; }
+  .cinema-root .cine-hero__headline h1:first-child { font-size: 1.9em; }
+  .cinema-root .cine-hero__ui { padding-inline: 16px; }
+  .cinema-root .cine-hud { left: 16px; right: 16px; }
+}
+
+/* ---------- movimento reduzido ---------- *
+ * NUNCA colapsar a altura do hero (zeraria o scrollable e travaria p em 0).
+ * Cortamos só o que anda sozinho.                                         */
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cinema-root [data-parallax] { transform: none !important; }
+  .cinema-root .cine-hero__hint span:last-child,
+  .cinema-root .cine-load__bar::after { animation: none; }
+}
