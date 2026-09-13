@@ -30,11 +30,15 @@ const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(RAIZ, 'dist');
 const PORTA = 4319;
 
-/* O idioma precisa ser fixado. `initialLang()` lê `navigator.language`, que no
-   runner do GitHub Actions é en-US — sem isto o site inteiro seria congelado em
-   inglês. pt-BR é o idioma primário; quem prefere inglês troca no seletor, e o
-   React reescreve tudo assim que monta. */
+/* O idioma precisa ser fixado, e a flag `--lang` do Chrome NÃO basta: no Linux
+   ela muda a interface do navegador, não `navigator.language`. Medido — a
+   primeira publicação saiu com o site inteiro em inglês, porque a locale do
+   runner é en-US. Quem manda é o `?lang=`, que `initialLang()` lê antes de
+   qualquer outra coisa. A flag fica junto porque ajuda no Windows e não custa.
+   pt-BR é o idioma primário; quem prefere inglês troca no seletor e o React
+   reescreve tudo assim que monta. */
 const IDIOMA = 'pt-BR';
+const PARAM_IDIOMA = 'lang=pt';
 
 /* Tempo virtual: o Chrome adianta timers e espera a rede em vez de dormir um
    número fixo de segundos. Um valor fixo de espera é justamente o que faz
@@ -179,7 +183,7 @@ let falhas = 0;
 for (const rota of lista) {
   let html;
   try {
-    html = await capturar(chrome, `http://127.0.0.1:${PORTA}${rota}`);
+    html = await capturar(chrome, `http://127.0.0.1:${PORTA}${rota}?${PARAM_IDIOMA}`);
   } catch (e) {
     console.error(`  ✗ ${rota} — captura falhou: ${e.message.split('\n')[0]}`);
     falhas++;

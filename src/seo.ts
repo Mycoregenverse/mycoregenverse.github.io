@@ -121,7 +121,13 @@ function metaProp(prop: string, valor: string) {
 export function useDocumentMeta(path: string, t: Translations, lang: Lang) {
   useEffect(() => {
     const { title, description, noindex } = metaForRoute(path, t, lang);
-    const url = SITE_URL + (path === '/' ? '/' : path);
+    /* Com barra no fim. Cada rota é publicada como `<rota>/index.html`, e o
+       Pages responde 301 de `/manifesto` para `/manifesto/`. Declarar a versão
+       sem barra faria a canônica apontar para um endereço que redireciona —
+       sinal contraditório para o buscador. A navegação interna continua usando
+       a forma sem barra; isto aqui é só o que se declara ao robô. */
+    const semBarra = path.replace(/\/+$/, '');
+    const url = SITE_URL + (semBarra === '' ? '/' : `${semBarra}/`);
 
     document.title = title;
     metaName('description', description);

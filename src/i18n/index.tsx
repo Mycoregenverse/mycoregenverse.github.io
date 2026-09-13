@@ -24,6 +24,16 @@ const LangContext = createContext<LangContextType>({
 const STORAGE_KEY = 'mcrv-lang';
 
 function initialLang(): Lang {
+  /* `?lang=` vem antes de tudo. É como a pré-renderização fixa o idioma: a
+     locale do runner do CI é en-US, e a flag `--lang` do Chrome não muda
+     `navigator.language` no Linux — sem isto o site publicado sai inteiro em
+     inglês. Também serve para compartilhar um link já no idioma certo. */
+  try {
+    const pedido = new URLSearchParams(window.location.search).get('lang');
+    if (pedido === 'en' || pedido === 'pt') return pedido;
+  } catch {
+    /* noop */
+  }
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'en' || stored === 'pt') return stored;
