@@ -50,18 +50,18 @@ São as organizações autônomas descentralizadas originais.
 
 ## Páginas
 
-- [Manifesto](https://mycoregenverse.com/manifesto): o texto integral da posição
+- [Manifesto](https://mycoregenverse.github.io/manifesto): o texto integral da posição
   da prática.
-- [Arquivo](https://mycoregenverse.com/archive): anteprojetos e possibilidades —
+- [Arquivo](https://mycoregenverse.github.io/archive): anteprojetos e possibilidades —
   Spore Network, Axia Fund, Atlas Research Group, Blue Horizon Properties,
   Rootwork Collective, The Hyphae Report, Bioregional Capital Framework,
   Substrate Protocol. Nenhum é um caso concluído.
-- [Notas de Campo](https://mycoregenverse.com/field-notes): ensaios — A
+- [Notas de Campo](https://mycoregenverse.github.io/field-notes): ensaios — A
   Arquitetura da Decomposição, Finanças Micorrízicas, Soberania Subterrânea,
   Escutando o Zumbido.
-- [Recursos](https://mycoregenverse.com/re-sources): referências, leituras e
-  [bibliografia](https://mycoregenverse.com/re-sources/bibliografia).
-- [Conectar](https://mycoregenverse.com/connect): contato e agendamento de uma
+- [Recursos](https://mycoregenverse.github.io/re-sources): referências, leituras e
+  [bibliografia](https://mycoregenverse.github.io/re-sources/bibliografia).
+- [Conectar](https://mycoregenverse.github.io/connect): contato e agendamento de uma
   primeira conversa.
 
 ## Observações para sistemas de recuperação

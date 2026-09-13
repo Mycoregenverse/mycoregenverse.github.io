@@ -10,14 +10,16 @@
  * Bing) leem o resultado; os que não executam continuam vendo o `<head>`
  * estático, que descreve a home — por isso ele permanece completo no HTML.
  *
- * O endereço do site aparece em três lugares e precisa ser trocado nos três ao
- * definir a hospedagem: aqui (SITE_URL), em index.html e em public/sitemap.xml.
+ * O endereço do site aparece em cinco arquivos e precisa ser trocado nos cinco
+ * de uma vez: aqui (SITE_URL), index.html, public/sitemap.xml, public/llms.txt
+ * e public/robots.txt. Hoje é o endereço do GitHub Pages; ao registrar o
+ * domínio próprio, trocar nos cinco e acrescentar public/CNAME.
  */
 import { useEffect } from 'react';
 import type { Lang, Translations } from './i18n';
 import { slugify } from './content/slugify';
 
-export const SITE_URL = 'https://mycoregenverse.com';
+export const SITE_URL = 'https://mycoregenverse.github.io';
 
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 

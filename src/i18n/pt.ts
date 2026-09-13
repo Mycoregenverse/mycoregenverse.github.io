@@ -129,14 +129,14 @@ export const pt = {
          explora, um relatório se lê. Repetir o mesmo verbo oito vezes fazia a
          lista soar como formulário. */
       projects: [
-        { name: 'Spore Network', cat: 'Infraestrutura Digital', status: 'Ativo', cta: 'Acesse' },
-        { name: 'Axia Fund', cat: 'Finanças Regenerativas', status: 'Ativo', cta: 'Conheça' },
-        { name: 'Atlas Research Group', cat: 'Pesquisa em Sistemas', status: 'Em andamento', cta: 'Explore' },
-        { name: 'Blue Horizon Properties', cat: 'Terra Regenerativa', status: 'Em andamento', cta: 'Descubra' },
-        { name: 'Rootwork Collective', cat: 'Infraestrutura Cultural', status: 'Concluído', cta: 'Inspire-se' },
-        { name: 'The Hyphae Report', cat: 'Arquitetura Narrativa', status: 'Concluído', cta: 'Leia aqui' },
-        { name: 'Bioregional Capital Framework', cat: 'Finanças Regenerativas', status: 'Conceito', cta: 'Saiba mais' },
-        { name: 'Substrate Protocol', cat: 'Design de Governança', status: 'Conceito', cta: 'Descubra' },
+        { name: 'Spore Network', cat: 'Infraestrutura Digital', cta: 'Acesse' },
+        { name: 'Axia Fund', cat: 'Finanças Regenerativas', cta: 'Conheça' },
+        { name: 'Atlas Research Group', cat: 'Pesquisa em Sistemas', cta: 'Explore' },
+        { name: 'Blue Horizon Properties', cat: 'Terra Regenerativa', cta: 'Descubra' },
+        { name: 'Rootwork Collective', cat: 'Infraestrutura Cultural', cta: 'Inspire-se' },
+        { name: 'The Hyphae Report', cat: 'Arquitetura Narrativa', cta: 'Leia aqui' },
+        { name: 'Bioregional Capital Framework', cat: 'Finanças Regenerativas', cta: 'Saiba mais' },
+        { name: 'Substrate Protocol', cat: 'Design de Governança', cta: 'Descubra' },
       ],
     },
     notas: {

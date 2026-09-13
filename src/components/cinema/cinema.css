@@ -1187,24 +1187,15 @@
   transition: transform var(--dur-fast) var(--ease);
 }
 .cinema-root .row:hover .row__t { transform: translateX(10px); }
-/* categoria à esquerda, chamada à direita; quebra em duas linhas se não couber */
-.cinema-root .row__foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--s-4);
-  flex-wrap: wrap;
-}
-.cinema-root .row__cta {
-  font-family: 'Space Mono', monospace;
-  font-size: var(--step--1);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: hsl(0 0% 100% / 0.38);
+/* a etiqueta do Arquivo é a chamada do projeto — acende junto com a linha */
+.cinema-root .row .tag {
   white-space: nowrap;
-  transition: color var(--dur-fast) var(--ease);
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
-.cinema-root .row:hover .row__cta { color: var(--c-fg); }
+.cinema-root .row:hover .tag {
+  color: var(--c-fg);
+  border-color: hsl(0 0% 100% / 0.45);
+}
 .cinema-root .tag {
   display: inline-block;
   font-family: 'Space Mono', monospace;

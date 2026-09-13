@@ -212,14 +212,14 @@ export default function HomeCinema() {
                   }}
                 >
                   <span className="row__t">{x.name}</span>
-                  <span className="tag">{x.status}</span>
-                </div>
-                <div className="row__foot">
-                  <span className="row__meta">{x.cat}</span>
-                  <span className="row__cta">
+                  {/* a etiqueta é a chamada do projeto: quem chega aqui quer
+                      saber para onde ir, não em que estágio a coisa está — o
+                      estágio continua no índice do Arquivo */}
+                  <span className="tag">
                     {x.cta} <span aria-hidden="true">→</span>
                   </span>
                 </div>
+                <span className="row__meta">{x.cat}</span>
               </Link>
             </Reveal>
           ))}
