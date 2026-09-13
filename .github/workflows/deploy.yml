@@ -34,11 +34,21 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # SPA fallback: o Pages não faz rewrite de rotas. Servir o index.html
-      # como 404.html faz qualquer rota (/manifesto, /archive) carregar o app,
-      # que então resolve a rota no cliente.
+      # Rede de segurança para endereços que não existem. Precisa vir ANTES da
+      # pré-renderização, para o 404.html ficar com a casca neutra em vez de
+      # uma cópia da home.
       - name: SPA fallback
         run: cp dist/index.html dist/404.html
+
+      # Grava um HTML real por rota. Sem isto o Pages responde 404 em tudo que
+      # não seja a raiz, e buscador não indexa página que responde 404.
+      # O script falha o build se alguma rota sair vazia — melhor não publicar
+      # do que publicar casca. Usa o Chrome que já vem na imagem do runner;
+      # a versão fica no log para o caso de a imagem mudar.
+      - name: Prerender routes
+        run: |
+          google-chrome --version
+          pnpm prerender
 
       - uses: actions/upload-pages-artifact@v3
         with:
