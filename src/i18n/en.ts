@@ -538,6 +538,11 @@ That is place-based practice. And it begins, always, with listening.`,
     soonMarker: '[ IN PREPARATION ]',
     soonBody:
       'The full text of this pre-project is in preparation. Check back soon — or get in touch to co-create it.',
+    licenseMarker: '[ LICENSE ]',
+    licenseBody:
+      'This pre-project — text and images — is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. Credit Mycoregenverse, do not use it commercially, and share adaptations under the same license.',
+    licenseLink: 'View the CC BY-NC-SA 4.0 license',
+    licenseUrl: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
     projects: [
       { name: 'Spore Network', category: 'Digital Infrastructure', desc: 'A decentralized coordination platform for regenerative practitioners and bioregional communities.', status: 'ACTIVE' },
       { name: 'Axia Fund', category: 'Regenerative Finance', desc: 'A patient-capital vehicle for place-based enterprises with long-term ecological mandates.', status: 'ACTIVE' },

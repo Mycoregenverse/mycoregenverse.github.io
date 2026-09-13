@@ -547,6 +547,12 @@ Essa é a prática baseada no lugar. E começa, sempre, com escutar.`,
     soonMarker: '[ EM PREPARO ]',
     soonBody:
       'O texto completo deste anteprojeto está em preparo. Volte em breve — ou entre em contato para cocriá-lo.',
+    /* fecha cada anteprojeto dizendo em que termos ele pode circular */
+    licenseMarker: '[ LICENÇA ]',
+    licenseBody:
+      'Este anteprojeto — texto e imagens — está sob Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Atribua a Mycoregenverse, não use comercialmente e compartilhe derivações sob a mesma licença.',
+    licenseLink: 'Ver a licença CC BY-NC-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br',
     projects: [
       { name: 'Spore Network', category: 'Infraestrutura Digital', desc: 'Uma plataforma de coordenação descentralizada para praticantes regenerativos e comunidades biorregionais.', status: 'ATIVO' },
       { name: 'Axia Fund', category: 'Finanças Regenerativas', desc: 'Um veículo de capital paciente para empresas baseadas em lugar com mandatos ecológicos de longo prazo.', status: 'ATIVO' },

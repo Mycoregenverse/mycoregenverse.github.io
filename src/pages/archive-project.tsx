@@ -54,6 +54,26 @@ export default function ArchiveProject() {
     </h1>
   );
 
+  /* Fecha cada anteprojeto. `rel="license"` não é enfeite: é como um robô
+     reconhece que aquele link descreve os termos desta página, e não uma
+     referência qualquer. */
+  const licenca = (
+    <aside className="mt-20">
+      <p className="site-meta font-mono text-[11px] tracking-widest uppercase mb-3">
+        {a.licenseMarker}
+      </p>
+      <p className="font-sans text-sm text-white/45 leading-relaxed max-w-[46ch]">{a.licenseBody}</p>
+      <a
+        href={a.licenseUrl}
+        target="_blank"
+        rel="license noreferrer"
+        className="mt-4 inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/60 hover:text-white transition-colors"
+      >
+        {a.licenseLink} <span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+  );
+
   if (!detail) {
     return (
       <motion.div {...pageTransition} className="w-full min-h-screen bg-background">
@@ -73,6 +93,7 @@ export default function ArchiveProject() {
               </p>
               <p className="font-sans text-base text-muted-foreground leading-relaxed">{a.soonBody}</p>
             </FadeIn>
+            <FadeIn delay={0.3}>{licenca}</FadeIn>
             <div className="mt-16 pt-10">{back}</div>
           </article>
         </div>
@@ -98,6 +119,8 @@ export default function ArchiveProject() {
           <FadeIn delay={0.25}>
             <Markdown source={detail.body[lang]} className="article-body" />
           </FadeIn>
+
+          <FadeIn delay={0.3}>{licenca}</FadeIn>
 
           <div className="mt-16 pt-10">{back}</div>
         </article>
