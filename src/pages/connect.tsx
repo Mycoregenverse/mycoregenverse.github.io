@@ -58,6 +58,14 @@ export default function Connect() {
                 >
                   IG : @mycoregenverse
                 </a>
+                <a
+                  href="https://mycoregenverse.substack.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-display text-2xl uppercase tracking-tighter hover:text-white/70 transition-colors"
+                >
+                  Substack : mycoregenverse
+                </a>
               </div>
             </div>
 
@@ -66,7 +74,7 @@ export default function Connect() {
                 href="https://koalendar.com/e/reuniao-com-catito-dev-mycoregenverse"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block font-mono text-sm tracking-[0.2em] border border-white/30 px-8 py-4 hover:bg-white hover:text-black transition-all uppercase"
+                className="btn-glass font-mono text-sm tracking-[0.2em] px-8 py-4 uppercase"
               >
                 {c.schedule}
               </a>

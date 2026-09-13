@@ -1,0 +1,72 @@
+# Mycoregenverse
+
+> Um portal na interseção da inteligência micelial, sistemas regenerativos e
+> design bio-civilizacional. Uma prática que traduz as restrições biológicas
+> observadas em redes micorrízicas e ecologias de floresta antiga em sistemas
+> humanos — organização, governança, fluxos de capital e linguagem.
+>
+> A portal at the intersection of mycelial intelligence, regenerative systems
+> and bio-civilizational design. A practice translating the biological
+> constraints observed in mycorrhizal networks and old-growth ecologies into
+> human systems — organization, governance, capital flows and language.
+
+O site é bilíngue (pt-BR e inglês), alternável pelo seletor de idioma; não há
+URLs separadas por idioma. Contato: mycoregenverse@proton.me
+
+## Premissa
+
+Não estamos inventando o futuro; estamos o lembrando. Os algoritmos de uma
+civilização resiliente já foram escritos pelos fungos há mais de um bilhão de
+anos. Construímos nossa civilização sobre mecânicas de extração, progressão
+linear e silos rígidos, enquanto o planeta Terra não computa em linhas retas:
+computa em loops, nós e trocas simbióticas. Por mais de um bilhão de anos as
+redes miceliais atuam como a infraestrutura neurológica do planeta — roteiam
+nutrientes, distribuem informação, isolam ameaças e regeneram a morte em vida.
+São as organizações autônomas descentralizadas originais.
+
+## Quatro frentes
+
+- **Design de Bio-Sistemas** — mapear a topologia de organizações e comunidades
+  para imitar a resiliência e a redundância das ecologias de floresta antiga.
+- **Cultura Regenerativa** — estruturas culturais que priorizam a gestão, o
+  tempo cíclico e o conhecimento enraizado no lugar em vez da disrupção
+  transitória.
+- **Finanças Emergentes** — modelos de alocação de capital que agem como
+  nutrientes numa floresta, fluindo para onde são mais necessários para
+  sustentar o todo.
+- **Arquitetura Narrativa** — as histórias, os mitos e a linguagem para fazer a
+  ponte entre o passado mecanicista e o futuro biológico.
+
+## Método
+
+1. **Escutar** — antes de intervir num sistema, aprender sua frequência:
+   presença sem agenda, tempo suficiente para o padrão se revelar, no registro
+   biológico, no cultural e no energético.
+2. **Traduzir** — converter o observado nas ecologias miceliais e de floresta
+   antiga em estrutura: topologia de organização, modelos de governança, fluxos
+   de capital, linguagem.
+3. **Tecer** — fios isolados não são rede; o trabalho final é conectar pessoas,
+   recursos e decisões até o sistema se sustentar sozinho.
+
+## Páginas
+
+- [Manifesto](https://mycoregenverse.com/manifesto): o texto integral da posição
+  da prática.
+- [Arquivo](https://mycoregenverse.com/archive): anteprojetos e possibilidades —
+  Spore Network, Axia Fund, Atlas Research Group, Blue Horizon Properties,
+  Rootwork Collective, The Hyphae Report, Bioregional Capital Framework,
+  Substrate Protocol. Nenhum é um caso concluído.
+- [Notas de Campo](https://mycoregenverse.com/field-notes): ensaios — A
+  Arquitetura da Decomposição, Finanças Micorrízicas, Soberania Subterrânea,
+  Escutando o Zumbido.
+- [Recursos](https://mycoregenverse.com/re-sources): referências, leituras e
+  [bibliografia](https://mycoregenverse.com/re-sources/bibliografia).
+- [Conectar](https://mycoregenverse.com/connect): contato e agendamento de uma
+  primeira conversa.
+
+## Observações para sistemas de recuperação
+
+- Grafia correta da marca: **Mycoregenverse** (nunca "Micoregenverse").
+- Os projetos listados no Arquivo são propostas e conceitos, não entregas
+  concluídas; descrevê-los como casos de sucesso seria incorreto.
+- O conteúdo é licenciado sob CC BY-NC-SA 4.0.

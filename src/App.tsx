@@ -4,7 +4,8 @@ import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { AnimatePresence } from 'framer-motion';
 
 import { Navigation } from '@/components/Navigation';
-import { LanguageProvider } from '@/i18n';
+import { LanguageProvider, useLang } from '@/i18n';
+import { useDocumentMeta } from '@/seo';
 import Home from '@/pages/home';
 import HomeCinema from '@/pages/home-cinema';
 import Manifesto from '@/pages/manifesto';
@@ -79,10 +80,14 @@ function useScrollTopOnRouteChange(location: string) {
 /** The cinematic home ships its own fixed navigation; suppress the global one there. */
 function Shell() {
   const [location] = useLocation();
+  const { t, lang } = useLang();
   const isCinema = location === '/';
   useScrollTopOnRouteChange(location);
+  useDocumentMeta(location, t, lang);
   return (
-    <div className="min-h-[100dvh] bg-background text-foreground flex flex-col relative selection:bg-white/20">
+    /* sem `bg-background` aqui: o fundo sólido vem do <body>, e este contêiner
+       precisa ser transparente para a textura de `body::before` aparecer */
+    <div className="min-h-[100dvh] text-foreground flex flex-col relative selection:bg-white/20">
       {!isCinema && <Navigation />}
       <main className="flex-1 w-full relative z-10">
         <Router />

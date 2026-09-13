@@ -27,6 +27,7 @@ export function CinemaNav() {
     <>
       <nav className={`cine-nav${scrolled ? ' is-scrolled' : ''}`} aria-label={t.nav.menu}>
         <a className="cine-nav__mark" href="#topo">
+          <img className="cine-nav__glyph" src="/logo-mark.png" alt="" width={128} height={128} />
           {t.footer.wordmark}
         </a>
         <div className="cine-nav__links">

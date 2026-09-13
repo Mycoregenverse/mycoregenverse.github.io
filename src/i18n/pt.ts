@@ -84,7 +84,7 @@ export const pt = {
           n: '01',
           t: 'Escutar',
           beats: [
-            'Antes de intervir num sistema, aprendo sua frequência.',
+            'Antes de intervir num sistema, aprendendo sua frequência.',
             'Presença sem agenda, tempo suficiente para o padrão se revelar',
             '— no registro biológico, no cultural e no energético.',
           ],
@@ -93,7 +93,7 @@ export const pt = {
           n: '02',
           t: 'Traduzir',
           beats: [
-            'Converto o que observo nas ecologias miceliais e de floresta antiga em estrutura:',
+            'Convertendo o observado nas ecologias miceliais e de floresta antiga em estrutura:',
             'topologia de organização, modelos de governança,',
             'fluxos de capital, linguagem.',
           ],
@@ -120,18 +120,23 @@ export const pt = {
     },
     arquivo: {
       marker: 'Arquivo de Sonhos',
-      intro:
-        'Nenhum destes é um caso concluído. São possibilidades — anteprojetos, iniciativas a serem tecidas e cocriadas.',
+      /* a quebra é intencional: título da coleção numa linha, o que ela reúne na
+         seguinte. Renderizado com `white-space: pre-line`. */
+      intro: 'Portfólio de Esporos de Possibilidades:\nanteprojetos & iniciativas a serem tecidas e cocriadas..',
       cta: 'Ver o arquivo completo',
+      /* `cta` varia por projeto e é escolhido pelo que cada um é: numa
+         plataforma se entra, de um fundo se toma conhecimento, uma pesquisa se
+         explora, um relatório se lê. Repetir o mesmo verbo oito vezes fazia a
+         lista soar como formulário. */
       projects: [
-        { name: 'Spore Network', cat: 'Infraestrutura Digital', status: 'Ativo' },
-        { name: 'Axia Fund', cat: 'Finanças Regenerativas', status: 'Ativo' },
-        { name: 'Atlas Research Group', cat: 'Pesquisa em Sistemas', status: 'Em andamento' },
-        { name: 'Blue Horizon Properties', cat: 'Terra Regenerativa', status: 'Em andamento' },
-        { name: 'Rootwork Collective', cat: 'Infraestrutura Cultural', status: 'Concluído' },
-        { name: 'The Hyphae Report', cat: 'Arquitetura Narrativa', status: 'Concluído' },
-        { name: 'Bioregional Capital Framework', cat: 'Finanças Regenerativas', status: 'Conceito' },
-        { name: 'Substrate Protocol', cat: 'Design de Governança', status: 'Conceito' },
+        { name: 'Spore Network', cat: 'Infraestrutura Digital', status: 'Ativo', cta: 'Acesse' },
+        { name: 'Axia Fund', cat: 'Finanças Regenerativas', status: 'Ativo', cta: 'Conheça' },
+        { name: 'Atlas Research Group', cat: 'Pesquisa em Sistemas', status: 'Em andamento', cta: 'Explore' },
+        { name: 'Blue Horizon Properties', cat: 'Terra Regenerativa', status: 'Em andamento', cta: 'Descubra' },
+        { name: 'Rootwork Collective', cat: 'Infraestrutura Cultural', status: 'Concluído', cta: 'Inspire-se' },
+        { name: 'The Hyphae Report', cat: 'Arquitetura Narrativa', status: 'Concluído', cta: 'Leia aqui' },
+        { name: 'Bioregional Capital Framework', cat: 'Finanças Regenerativas', status: 'Conceito', cta: 'Saiba mais' },
+        { name: 'Substrate Protocol', cat: 'Design de Governança', status: 'Conceito', cta: 'Descubra' },
       ],
     },
     notas: {
@@ -147,11 +152,12 @@ export const pt = {
     },
     sceneLiberacao: {
       marker: 'A Liberação',
-      lineA: 'A árvore cai,',
-      lineB: 'os fungos herdam.',
+      /* Uma lista em quatro tempos, não duas frases: na cena full-bleed as duas
+         falas surgem e permanecem, então os quatro itens se acumulam na tela.
+         As quebras são renderizadas com `white-space: pre-line`. */
+      lineA: 'Ideias,\nNós,',
+      lineB: 'Esporos,\nFuturos.',
       detailLabel: 'Esporos no ar',
-      p1: 'Nos sistemas biológicos, a decomposição não é um ponto final — é um motor. Um mecanismo de redistribuição.',
-      p2: 'Os fungos não lamentam a árvore caída. Eles a herdam. E nessa herança, constroem as condições para o próximo século de crescimento.',
     },
     linhagem: {
       marker: 'Linhagem',
@@ -189,7 +195,7 @@ export const pt = {
         },
         {
           q: 'Como começa uma colaboração?',
-          a: 'Começa escutando. Uma primeira conversa sem entregável, para entender a frequência do que você está tentando fazer. Só depois disso eu falo em estrutura.',
+          a: 'Começa escutando. Uma primeira conversa sem entregável, para entender a frequência do que você está tentando fazer. Só depois disso falamos em estrutura.',
         },
       ],
     },
@@ -483,6 +489,7 @@ Essa é a prática baseada no lugar. E começa, sempre, com escutar.`,
     subtitle: 'Uma bibliografia viva. O material bruto para construir arquitetura bio-civilizacional.',
     accessBtn: 'Acessar Recursos',
     byLabel: 'Por',
+    cardRef: 'Ficha completa',
     sections: [
       {
         category: 'Micologia e Inteligência da Terra',
@@ -519,9 +526,9 @@ Essa é a prática baseada no lugar. E começa, sempre, com escutar.`,
     marker: '[ BIBLIOTECA ]',
     title: 'Bibliografia',
     subtitle:
-      'A referência completa por trás de Recursos — obras, redes, protocolos e artigos científicos, com link de acesso onde existe. Organizada por tema, não por ordem de importância.',
+      'A referência completa por trás de Recursos: obras, redes, protocolos e artigos científicos, com link de acesso onde existe. Organizada por tema.',
     backToResources: '← Voltar a Recursos',
-    countSuffix: 'referências verificadas, em 13 seções.',
+    headerAlt: 'Páginas em decomposição atravessadas por filamentos de micélio',
     byLabel: 'Por',
   },
 
@@ -529,8 +536,10 @@ Essa é a prática baseada no lugar. E começa, sempre, com escutar.`,
   archive: {
     marker: 'ARQUIVO DE SONHOS',
     title: 'Arquivo de Sonhos',
+    /* mesma formulação de `home.arquivo.intro`, acrescida do escopo — as duas
+       apresentam a mesma coleção e precisam dizer a mesma coisa */
     subtitle:
-      'Nenhum destes é um caso concluído. São possibilidades — anteprojetos, iniciativas a serem tecidas e cocriadas. Obras em terra, cultura, capital e narrativa.',
+      'Portfólio de Esporos de Possibilidades: anteprojetos & iniciativas a serem tecidas e cocriadas. Obras em terra, cultura, capital e narrativa.',
     headerAlt: 'Fios do urdume esticados no tear, antes de qualquer trama',
     headers: { name: 'Nome do Projeto', domain: 'Domínio', description: 'Descrição', status: 'Status' },
     backToIndex: 'Todas as possibilidades',
@@ -554,7 +563,7 @@ Essa é a prática baseada no lugar. E começa, sempre, com escutar.`,
   connect: {
     title: 'Estabelecer\nConexão',
     body1:
-      'Colaboro com fundadores, guardiões da terra e organizações que buscam a transição de modelos extrativos para arquiteturas regenerativas e bio-sistêmicas.',
+      'Colaborando com fundadores, guardiões da terra e organizações que buscam a transição de modelos extrativos para arquiteturas regenerativas e bio-sistêmicas.',
     body2:
       'Se você está construindo a infraestrutura do próximo paradigma, ou se simplesmente ressoa com a frequência deste trabalho, a rede está aberta.',
     directComm: '[ Comunicação direta ]',

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&display=swap');
+/* As fontes são carregadas por <link> no index.html, junto do preconnect.
+   Um @import aqui as colocaria numa cadeia serial — o navegador só descobriria
+   a requisição depois de baixar e analisar este CSS. */
 @import 'tailwindcss';
 
 /* ---------- Liquid-glass header (PREVIEW — not yet final, see chat) ----------
@@ -258,6 +260,20 @@
        impede a barra horizontal sem criar contexto de rolagem — `hidden`
        aqui quebraria o position:sticky de que as cenas dependem. */
     overflow-x: clip;
+  }
+
+  /* Lastro de página: textura mineral quase preta, fixa, para o fundo não ser
+     um chapado digital. Vale onde o conteúdo deixa o fundo aparecer — as cenas
+     cinema são full-bleed e cobrem esta camada por inteiro, o que é esperado.
+     `fixed` em vez de elemento rolante: sem custo de layout e sem jank.        */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: url('/bg-page.jpg') center / cover no-repeat;
+    opacity: 0.85;
   }
 }
 

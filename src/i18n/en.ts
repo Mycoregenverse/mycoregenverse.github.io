@@ -26,10 +26,10 @@ export const en: typeof pt = {
   /* ---------------- HOME (cinema) ---------------- */
   home: {
     hero: {
-      lineA: 'One node.',
-      lineB: 'One among millions.',
-      sub: 'A portal at the intersection of mycelial intelligence, regenerative systems, and bio-civilizational design.',
-      coda: 'The whole network, breathing.',
+      lineA: 'One node',
+      lineB: 'Among millions',
+      sub: '',
+      coda: 'A portal at the intersection of mycelial intelligence, regenerative systems, and bio-civilizational design.',
       counterLabel: 'Nodes in the network',
       signalLabel: 'Signal',
       hint: 'Scroll',
@@ -43,11 +43,11 @@ export const en: typeof pt = {
     band1: 'When a tree falls in an old-growth forest, it is not failure. It is a new phase of contribution.',
     manifesto: {
       marker: 'Manifesto',
-      portraitLabel: '[ Ident : the practitioner ]',
-      opening: 'We work at the boundary where fungal networks meet human futures.',
-      p1: 'We built our civilization on the mechanics of extraction, linear progression, and rigid silos. But the Earth does not compute in straight lines. It computes in loops, nodes, and symbiotic exchanges.',
-      p2: 'For over a billion years, mycelial networks have acted as the planet’s neurological infrastructure. They route nutrients, distribute information, isolate threats, and regenerate death into life. They are the original decentralized autonomous organizations.',
-      p3: 'Our practice is the translation of these biological truths into human systems.',
+      portraitLabel: '[ Ident : Practitioner ]',
+      opening: 'Working at the boundary where fungal networks meet human futures.',
+      p1: 'We built our civilization on the mechanics of extraction, linear progression, and rigid silos. Whereas the planet Earth does not compute in straight lines. She, Gaia, computes in loops, nodes, and symbiotic exchanges.',
+      p2: 'For over a billion years, mycelial networks have been acting as the planet’s neurological infrastructure. They route nutrients, distribute information, isolate threats, and regenerate death into life. They are the original decentralized autonomous organizations.',
+      p3: 'Our practice is the experiential translation of these biological inspirations into human systems.',
       cta: 'Read the full manifesto',
     },
     rede: {
@@ -86,7 +86,7 @@ export const en: typeof pt = {
           n: '01',
           t: 'Listen',
           beats: [
-            'Before intervening in a system, I learn its frequency.',
+            'Before intervening in a system, learning its frequency.',
             'Presence without an agenda, long enough for the pattern to reveal itself',
             '— in the biological register, the cultural, and the energetic.',
           ],
@@ -95,7 +95,7 @@ export const en: typeof pt = {
           n: '02',
           t: 'Translate',
           beats: [
-            'I convert what I observe in mycelial and old-growth ecologies into structure:',
+            'Converting what is observed in mycelial and old-growth ecologies into structure:',
             'organizational topology, governance models,',
             'capital flows, language.',
           ],
@@ -113,8 +113,8 @@ export const en: typeof pt = {
     },
     sceneSinal: {
       marker: 'Signal',
-      lineA: 'Before the day,',
-      lineB: 'the system wakes.',
+      lineA: 'Dynamic cycles',
+      lineB: 'Ecosystemic Interoperability',
       detailLabel: 'Light',
       heading: 'Listening to the old-growth system',
       p1: 'We are not inventing the future; we are remembering it. The algorithms for a resilient civilization were written by fungi more than a billion years ago.',
@@ -122,18 +122,17 @@ export const en: typeof pt = {
     },
     arquivo: {
       marker: 'Archive of Dreams',
-      intro:
-        'None of these is a finished case. They are possibilities — pre-projects, initiatives to be woven and co-created.',
+      intro: 'Spore Portfolio of Possibilities:\npre-projects & initiatives to be woven and co-created..',
       cta: 'See the full archive',
       projects: [
-        { name: 'Spore Network', cat: 'Digital Infrastructure', status: 'Active' },
-        { name: 'Axia Fund', cat: 'Regenerative Finance', status: 'Active' },
-        { name: 'Atlas Research Group', cat: 'Systems Research', status: 'Ongoing' },
-        { name: 'Blue Horizon Properties', cat: 'Regenerative Land', status: 'Ongoing' },
-        { name: 'Rootwork Collective', cat: 'Cultural Infrastructure', status: 'Complete' },
-        { name: 'The Hyphae Report', cat: 'Narrative Architecture', status: 'Complete' },
-        { name: 'Bioregional Capital Framework', cat: 'Regenerative Finance', status: 'Concept' },
-        { name: 'Substrate Protocol', cat: 'Governance Design', status: 'Concept' },
+        { name: 'Spore Network', cat: 'Digital Infrastructure', status: 'Active', cta: 'Access' },
+        { name: 'Axia Fund', cat: 'Regenerative Finance', status: 'Active', cta: 'Get to know' },
+        { name: 'Atlas Research Group', cat: 'Systems Research', status: 'Ongoing', cta: 'Explore' },
+        { name: 'Blue Horizon Properties', cat: 'Regenerative Land', status: 'Ongoing', cta: 'Discover' },
+        { name: 'Rootwork Collective', cat: 'Cultural Infrastructure', status: 'Complete', cta: 'Take inspiration' },
+        { name: 'The Hyphae Report', cat: 'Narrative Architecture', status: 'Complete', cta: 'Read it here' },
+        { name: 'Bioregional Capital Framework', cat: 'Regenerative Finance', status: 'Concept', cta: 'Learn more' },
+        { name: 'Substrate Protocol', cat: 'Governance Design', status: 'Concept', cta: 'Discover' },
       ],
     },
     notas: {
@@ -149,11 +148,9 @@ export const en: typeof pt = {
     },
     sceneLiberacao: {
       marker: 'The Release',
-      lineA: 'The tree falls,',
-      lineB: 'the fungi inherit.',
+      lineA: 'Ideas,\nNodes,',
+      lineB: 'Spores,\nFutures.',
       detailLabel: 'Spores aloft',
-      p1: 'In biological systems, decay is not an endpoint — it is an engine. A redistribution mechanism.',
-      p2: 'The fungi do not mourn the fallen tree. They inherit it. And in that inheritance, they build the conditions for the next century of growth.',
     },
     linhagem: {
       marker: 'Lineage',
@@ -191,7 +188,7 @@ export const en: typeof pt = {
         },
         {
           q: 'How does a collaboration start?',
-          a: 'It starts by listening. A first conversation with no deliverable, to understand the frequency of what you are trying to do. Only after that do I talk about structure.',
+          a: 'It starts by listening. A first conversation with no deliverable, to understand the frequency of what you are trying to do. Only after that do we talk about structure.',
         },
       ],
     },
@@ -485,6 +482,7 @@ That is place-based practice. And it begins, always, with listening.`,
     subtitle: 'A living bibliography. The raw material for building bio-civilizational architecture.',
     accessBtn: 'Access Resources',
     byLabel: 'By',
+    cardRef: 'Full entry',
     sections: [
       {
         category: 'Mycology & Earth Intelligence',
@@ -521,9 +519,9 @@ That is place-based practice. And it begins, always, with listening.`,
     marker: '[ LIBRARY ]',
     title: 'Bibliography',
     subtitle:
-      'The full reference behind Re-Sources — works, networks, protocols and scientific articles, with an access link where one exists. Organized by theme, not by order of importance.',
+      'The full reference list behind Re-Sources: works, networks, protocols and scientific articles, with an access link where one exists. Organized by theme.',
     backToResources: '← Back to Re-Sources',
-    countSuffix: 'verified references, across 13 sections.',
+    headerAlt: 'Decomposing pages threaded through with mycelium',
     byLabel: 'By',
   },
 
@@ -532,7 +530,7 @@ That is place-based practice. And it begins, always, with listening.`,
     marker: 'ARCHIVE OF DREAMS',
     title: 'Archive of Dreams',
     subtitle:
-      'None of these is a finished case. They are possibilities — pre-projects, initiatives to be woven and co-created. Works across land, culture, capital, and narrative.',
+      'Spore Portfolio of Possibilities: pre-projects & initiatives to be woven and co-created. Works across land, culture, capital, and narrative.',
     headerAlt: 'Warp threads strung on the loom, before any weft',
     headers: { name: 'Project Name', domain: 'Domain', description: 'Description', status: 'Status' },
     backToIndex: 'All possibilities',
@@ -556,7 +554,7 @@ That is place-based practice. And it begins, always, with listening.`,
   connect: {
     title: 'Establish\nConnection',
     body1:
-      'I collaborate with founders, land stewards, and organizations looking to transition from extractive models to regenerative, bio-systemic architectures.',
+      'Collaborating with founders, land stewards, and organizations looking to transition from extractive models to regenerative, bio-systemic architectures.',
     body2:
       'If you are building the infrastructure for the next paradigm, or if you simply resonate with the frequency of this work, the network is open.',
     directComm: '[ Direct comm ]',

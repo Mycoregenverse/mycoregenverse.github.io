@@ -9,6 +9,7 @@ import { CinemaFooter } from '@/components/cinema/CinemaFooter';
 import { Reveal, CountUp, useParallax } from '@/components/cinema/motion';
 import { RedeCarousel } from '@/components/cinema/RedeCarousel';
 import { MetodoScene } from '@/components/cinema/MetodoScene';
+import { slugify } from '@/content/slugify';
 
 const REDE_IMAGES = ['/section-roots.jpg', '/section-forest.jpg', '/section-spores.jpg', '/archive-header.jpg'];
 
@@ -132,7 +133,15 @@ export default function HomeCinema() {
           <p className="marker">{h.rede.marker}</p>
         </Reveal>
         <Reveal delay={1}>
-          <p className="label" style={{ marginTop: 'var(--s-6)', lineHeight: 1.8, whiteSpace: 'pre-line' }}>
+          <p
+            className="label"
+            style={{
+              marginTop: 'var(--s-6)',
+              lineHeight: 1.8,
+              whiteSpace: 'pre-line',
+              color: 'var(--c-signal)',
+            }}
+          >
             {h.rede.note}
           </p>
         </Reveal>
@@ -180,26 +189,38 @@ export default function HomeCinema() {
           <p className="marker">{h.arquivo.marker}</p>
         </Reveal>
         <Reveal delay={1}>
+          {/* ciano e quebra preservada, como a nota de "A Rede": as duas abrem
+              a seção dizendo o que ela é, não o que ela contém */}
           <div className="prose" style={{ marginTop: 'var(--s-6)' }}>
-            <p>{h.arquivo.intro}</p>
+            <p style={{ whiteSpace: 'pre-line', color: 'var(--c-signal)' }}>{h.arquivo.intro}</p>
           </div>
         </Reveal>
         <div style={{ marginTop: 'var(--s-8)' }}>
           {h.arquivo.projects.map((x, i) => (
-            <Reveal key={x.name} delay={i} className="row" as="div">
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'baseline',
-                  gap: 'var(--s-4)',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <span className="row__t">{x.name}</span>
-                <span className="tag">{x.status}</span>
-              </div>
-              <span className="row__meta">{x.cat}</span>
+            <Reveal key={x.name} delay={i} as="div">
+              {/* a linha é o link. `.row` já trazia `text-decoration: none` e o
+                  deslize do título no hover — a afordância existia, faltava o
+                  destino. Leva ao anteprojeto, como no índice do Arquivo. */}
+              <Link href={`/archive/${slugify(x.name)}`} className="row">
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    gap: 'var(--s-4)',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <span className="row__t">{x.name}</span>
+                  <span className="tag">{x.status}</span>
+                </div>
+                <div className="row__foot">
+                  <span className="row__meta">{x.cat}</span>
+                  <span className="row__cta">
+                    {x.cta} <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </Link>
             </Reveal>
           ))}
         </div>
@@ -362,16 +383,7 @@ export default function HomeCinema() {
         lineA={h.sceneLiberacao.lineA}
         lineB={h.sceneLiberacao.lineB}
         detail={{ kind: 'count', label: h.sceneLiberacao.detailLabel, to: 500_000 }}
-      >
-        <div className="prose" style={{ maxWidth: '68ch', marginInline: 'auto', textAlign: 'center' }}>
-          <Reveal>
-            <p>{h.sceneLiberacao.p1}</p>
-          </Reveal>
-          <Reveal delay={1}>
-            <p>{h.sceneLiberacao.p2}</p>
-          </Reveal>
-        </div>
-      </CinemaScene>
+      />
 
       <CinemaFooter />
     </div>

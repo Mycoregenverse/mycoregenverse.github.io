@@ -7,6 +7,7 @@ import '@/components/cinema/cinema.css';
 import { useLang } from '@/i18n';
 import { usePinnedZoom } from '@/components/cinema/motion';
 import { CinemaFooter } from '@/components/cinema/CinemaFooter';
+import { bibliographyHref } from '@/content/resource-refs';
 
 const clamp = (n: number, lo = 0, hi = 1) => (n < lo ? lo : n > hi ? hi : n);
 
@@ -54,7 +55,7 @@ export default function ReSources() {
         <FadeIn delay={0.1}>
           <Link
             href="/re-sources/bibliografia"
-            className="inline-flex items-center gap-3 font-mono text-xs tracking-[0.2em] uppercase border border-white/30 px-6 py-3 hover:bg-white hover:text-black transition-all"
+            className="btn-glass gap-3 font-mono text-xs tracking-[0.2em] uppercase px-6 py-3"
           >
             {rs.accessBtn} →
           </Link>
@@ -68,9 +69,13 @@ export default function ReSources() {
               </FadeIn>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                {section.items.map((item, i) => (
-                  <FadeIn key={item.title} delay={0.2 + i * 0.1}>
-                    <div className="group pl-6 border-l border-border hover:border-white/50 transition-colors">
+                {section.items.map((item, i) => {
+                  const href = bibliographyHref(item.title);
+                  /* o cartão só recebe afordância de clique quando leva a
+                     algum lugar — sem isto a borda acendia no hover e o
+                     clique não fazia nada */
+                  const corpo = (
+                    <>
                       <h3 className="font-display text-xl uppercase tracking-tight mb-2 text-foreground group-hover:text-white transition-colors">
                         {item.title}
                       </h3>
@@ -78,9 +83,29 @@ export default function ReSources() {
                         {rs.byLabel} {item.author}
                       </div>
                       <p className="font-sans text-sm text-white/60 leading-relaxed">{item.note}</p>
-                    </div>
-                  </FadeIn>
-                ))}
+                      {href && (
+                        <span className="mt-3 inline-flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase text-white/35 group-hover:text-white/80 transition-colors">
+                          {rs.cardRef}
+                          <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                        </span>
+                      )}
+                    </>
+                  );
+                  return (
+                    <FadeIn key={item.title} delay={0.2 + i * 0.1}>
+                      {href ? (
+                        <Link
+                          href={href}
+                          className="group block pl-6 border-l border-border hover:border-white/50 transition-colors"
+                        >
+                          {corpo}
+                        </Link>
+                      ) : (
+                        <div className="pl-6 border-l border-border">{corpo}</div>
+                      )}
+                    </FadeIn>
+                  );
+                })}
               </div>
             </div>
           ))}

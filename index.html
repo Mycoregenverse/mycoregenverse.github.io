@@ -2,25 +2,162 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Mycoregenverse</title>
-    <meta name="description" content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Mycoregenverse" />
-    <meta property="og:description" content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Restauração de rota do SPA no GitHub Pages: decodifica a rota que o
+         404.html guardou na query string e devolve a URL real antes do app
+         montar. Inócuo fora do Pages (só age quando a query começa com /?/). -->
+    <script>
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
+
+    <title>Mycoregenverse — Inteligência micelial e design bio-civilizacional</title>
+    <meta
+      name="description"
+      content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional. Tradução de restrições biológicas em sistemas humanos."
+    />
+    <meta name="author" content="Mycoregenverse" />
+    <meta name="theme-color" content="#080808" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- ÚNICO ponto onde o endereço do site aparece. Trocar aqui, no sitemap.xml
+         e no llms.txt ao definir a hospedagem definitiva. -->
+    <link rel="canonical" href="https://mycoregenverse.com/" />
+
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/hero-poster.jpg" />
+    <meta property="og:site_name" content="Mycoregenverse" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://mycoregenverse.com/" />
+    <meta property="og:title" content="Mycoregenverse — Inteligência micelial e design bio-civilizacional" />
+    <meta
+      property="og:description"
+      content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional."
+    />
+    <meta property="og:image" content="https://mycoregenverse.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta
+      property="og:image:alt"
+      content="Nó micelial luminoso sobre fundo escuro, com a marca Mycoregenverse"
+    />
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mycoregenverse" />
-    <meta name="twitter:description" content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional." />
+    <meta name="twitter:title" content="Mycoregenverse — Inteligência micelial e design bio-civilizacional" />
+    <meta
+      name="twitter:description"
+      content="Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional."
+    />
+    <meta name="twitter:image" content="https://mycoregenverse.com/og-image.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="Nó micelial luminoso sobre fundo escuro, com a marca Mycoregenverse"
+    />
+
+    <!-- Ícones -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Dados estruturados: como buscadores e modelos de linguagem entendem o site -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://mycoregenverse.com/#website",
+            "url": "https://mycoregenverse.com/",
+            "name": "Mycoregenverse",
+            "description": "Um portal na interseção da inteligência micelial, sistemas regenerativos e design bio-civilizacional.",
+            "inLanguage": ["pt-BR", "en"],
+            "publisher": { "@id": "https://mycoregenverse.com/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://mycoregenverse.com/#organization",
+            "name": "Mycoregenverse",
+            "url": "https://mycoregenverse.com/",
+            "logo": "https://mycoregenverse.com/icon-512.png",
+            "image": "https://mycoregenverse.com/og-image.jpg",
+            "email": "mycoregenverse@proton.me",
+            "description": "Prática de tradução de restrições biológicas — observadas em redes micorrízicas e ecologias de floresta antiga — em sistemas humanos, em quatro frentes: design de bio-sistemas, cultura regenerativa, finanças emergentes e arquitetura narrativa.",
+            "knowsAbout": [
+              "Inteligência micelial",
+              "Redes micorrízicas",
+              "Sistemas regenerativos",
+              "Design bio-civilizacional",
+              "Pensamento sistêmico",
+              "Finanças regenerativas",
+              "Governança de bens comuns",
+              "Conhecimento baseado no lugar"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://mycoregenverse.com/#webpage",
+            "url": "https://mycoregenverse.com/",
+            "name": "Mycoregenverse — Inteligência micelial e design bio-civilizacional",
+            "isPartOf": { "@id": "https://mycoregenverse.com/#website" },
+            "about": { "@id": "https://mycoregenverse.com/#organization" },
+            "primaryImageOfPage": "https://mycoregenverse.com/og-image.jpg",
+            "inLanguage": "pt-BR"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syncopate:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="preload" as="image" href="/hero-poster.jpg" />
   </head>
   <body>
     <div id="root"></div>
+    <!-- O site é uma aplicação de página única: sem JavaScript o #root fica
+         vazio. Este bloco dá a leitores sem JS — e aos rastreadores que não
+         executam scripts — o texto essencial e o grafo de links do site. -->
+    <noscript>
+      <main style="max-width: 46rem; margin: 0 auto; padding: 3rem 1.5rem; color: #c9d2d0; background: #080808; font-family: system-ui, sans-serif; line-height: 1.7">
+        <h1 style="letter-spacing: -0.03em">Mycoregenverse</h1>
+        <p>
+          Um portal na interseção da inteligência micelial, sistemas regenerativos e design
+          bio-civilizacional. Uma prática que traduz as restrições biológicas observadas em redes
+          micorrízicas e ecologias de floresta antiga em sistemas humanos: topologia de organização,
+          modelos de governança, fluxos de capital e linguagem.
+        </p>
+        <p>
+          Quatro frentes — design de bio-sistemas, cultura regenerativa, finanças emergentes e
+          arquitetura narrativa. Um método em três tempos: escutar, traduzir, tecer.
+        </p>
+        <ul>
+          <li><a href="/manifesto" style="color: #8fd6cd">Manifesto</a></li>
+          <li><a href="/archive" style="color: #8fd6cd">Arquivo de Sonhos</a></li>
+          <li><a href="/field-notes" style="color: #8fd6cd">Notas de Campo</a></li>
+          <li><a href="/re-sources" style="color: #8fd6cd">Recursos</a></li>
+          <li><a href="/connect" style="color: #8fd6cd">Conectar</a></li>
+        </ul>
+        <p>Contato: <a href="mailto:mycoregenverse@proton.me" style="color: #8fd6cd">mycoregenverse@proton.me</a></p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

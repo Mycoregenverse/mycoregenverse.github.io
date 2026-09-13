@@ -37,8 +37,20 @@ export function Navigation() {
         <div className="pointer-events-auto">
           <Link
             href="/"
-            className="font-display font-bold text-xl tracking-tighter text-white uppercase hover:opacity-70 transition-opacity"
+            /* A Syncopate é larguíssima: "MYCOREGENVERSE" a 20px ocupa ~295px e,
+               com o glyph ao lado, encosta no seletor de idioma a 375px. O corpo
+               acompanha a largura disponível. */
+            className="font-display font-bold text-sm sm:text-lg md:text-xl tracking-tighter text-white uppercase hover:opacity-70 transition-opacity flex items-center gap-2 sm:gap-2.5"
           >
+            {/* o glyph precisa de realce: seus filamentos são finos demais para
+                se sustentarem a 30px — mesmo motivo do favicon */}
+            <img
+              src="/logo-mark.png"
+              alt=""
+              width={128}
+              height={128}
+              className="w-[1.85em] h-[1.85em] shrink-0 [filter:brightness(2)_contrast(1.3)_saturate(1.4)]"
+            />
             {t.nav.wordmark}
           </Link>
         </div>

@@ -217,6 +217,31 @@
 .cinema-root .mf-open--anchor-top .mf-open__media img {
   object-position: center 8%;
 }
+/* Exceção ao preto-e-branco, para a Bibliografia. Os outros headers são fotos
+   já quase monocromáticas — dessaturar não lhes custa nada. Naquela, o assunto
+   É a cor: o micélio ciano atravessando as páginas em decomposição. Em
+   `grayscale(1)` a imagem vira só livro molhado e o sentido se perde. Fica na
+   dessaturação parcial: a família continua escura e fria, e o único croma que
+   sobra é o mesmo ciano do sinal. */
+.cinema-root .mf-open--signal .mf-open__media img {
+  object-position: center 46%;
+  filter: grayscale(0.42) contrast(1.06) brightness(0.58) saturate(1.55);
+}
+/* Em tela estreita o `cover` recorta na horizontal e o que sobra atrás do
+   título é o papel claro, não o húmus — no desktop o texto cai sobre a parte
+   escura e o véu padrão basta. Esta é a foto mais clara das quatro; só ela
+   precisa do reforço. */
+@media (max-width: 860px) {
+  .cinema-root .mf-open--signal .mf-open__scrim {
+    background: linear-gradient(
+      to bottom,
+      hsl(0 0% 2% / 0.5) 0%,
+      hsl(0 0% 2% / 0.3) 30%,
+      hsl(0 0% 2% / 0.82) 66%,
+      hsl(0 0% 3% / 0.99) 100%
+    );
+  }
+}
 .cinema-root .mf-open__scrim {
   position: absolute;
   inset: 0;
@@ -793,15 +818,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.18em;
+  /* sem `gap`: o espaçamento vem todo do `line-height` dos spans. Com os dois
+     somados, uma fala de duas linhas ficava mais apertada por dentro do que
+     entre as falas, e a lista da Liberação lia como dois pares em vez de
+     quatro itens. Entre falas de uma linha o resultado é idêntico ao gap de
+     0.18em que havia aqui. */
   font-size: clamp(1rem, 4.6vw, 3.4rem);
   text-align: center;
 }
+/* `pre-line` sobrepõe o `nowrap` da base: uma fala pode trazer mais de uma
+   linha (a Liberação é uma lista de quatro), e a entrelinha precisa acompanhar
+   o mesmo respiro do `gap` entre as duas falas. */
 .cinema-root .cine-scene--bleed .cine-scene__headline span {
   position: static;
   color: #fff;
   text-shadow: 0 2px 44px hsl(0 0% 0% / 0.75);
   transition: opacity 0.25s linear;
+  white-space: pre-line;
+  line-height: 1.18;
 }
 .cinema-root .cine-scene--bleed .cine-scene__detail {
   position: absolute;
@@ -935,6 +969,9 @@
 .cinema-root .cine-nav.is-scrolled .cine-nav__links a:hover { color: var(--c-fg); }
 .cinema-root .cine-nav.is-scrolled .cine-nav__burger { color: var(--c-fg); }
 .cinema-root .cine-nav__mark {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
   font-family: 'Syncopate', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -942,6 +979,14 @@
   font-size: var(--step-0);
   color: #fff;
   text-decoration: none;
+}
+/* o nó micelial da marca. Realce pelo mesmo motivo do favicon: os filamentos
+   são finos demais para sobreviver a este tamanho sem brilho e contraste. */
+.cinema-root .cine-nav__glyph {
+  width: 1.85em;
+  height: 1.85em;
+  flex: none;
+  filter: brightness(2) contrast(1.3) saturate(1.4);
 }
 .cinema-root .cine-nav__links {
   display: flex;
@@ -1142,6 +1187,24 @@
   transition: transform var(--dur-fast) var(--ease);
 }
 .cinema-root .row:hover .row__t { transform: translateX(10px); }
+/* categoria à esquerda, chamada à direita; quebra em duas linhas se não couber */
+.cinema-root .row__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.cinema-root .row__cta {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: hsl(0 0% 100% / 0.38);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease);
+}
+.cinema-root .row:hover .row__cta { color: var(--c-fg); }
 .cinema-root .tag {
   display: inline-block;
   font-family: 'Space Mono', monospace;
@@ -1184,35 +1247,126 @@
   max-width: 64ch;
 }
 
+/* tipografia do botão; a aparência de vidro vem do bloco no fim do arquivo */
 .cinema-root .btn {
-  display: inline-block;
   font-family: 'Space Mono', monospace;
   font-size: var(--step--1);
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-  border: 1px solid hsl(0 0% 100% / 0.35);
   padding: 16px 28px;
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.cinema-root .btn:hover { background: #fff; color: #000; }
 
+/* O rodapé fecha o site no solo: a imagem é um emaranhado de raízes que já vem
+   desvanecido para preto no topo, então encosta na seção anterior sem costura
+   nem linha. `position: relative` só para o conteúdo ficar acima do lastro. */
 .cinema-root .cine-foot {
-  padding: var(--s-12) var(--gutter) var(--s-8);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-6);
-  justify-content: space-between;
-  align-items: flex-end;
+  position: relative;
+  padding: var(--s-10) var(--gutter) var(--s-6);
+  background-image: url('/bg-footer.jpg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
 }
-/* ocupa a linha inteira: o flex-wrap do rodapé joga para a própria faixa */
+/* véu por cima da imagem: garante contraste do texto sobre as raízes claras */
+.cinema-root .cine-foot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--c-bg) 0%, rgba(8, 8, 8, 0.55) 38%, rgba(8, 8, 8, 0.72) 100%);
+}
+.cinema-root .cine-foot > * {
+  position: relative;
+}
+
+/* Três colunas com as laterais de mesma fração: assim a lista do meio fica
+   centrada na página, e não entre os dois blocos — que têm larguras diferentes.
+   `auto` no meio deixa a lista com a largura do seu item mais longo.
+
+   `minmax(0, 1fr)` e não `1fr`: o mínimo implícito de uma coluna de grid é
+   `auto`, então a assinatura em Syncopate — que é larguíssima — esticaria a
+   coluna da esquerda além da tela e empurraria a lista para fora do centro. */
+.cinema-root .cine-foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-6);
+}
+.cinema-root .cine-foot__tagline {
+  margin-top: var(--s-3);
+  letter-spacing: 0.2em;
+}
+.cinema-root .cine-foot__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  text-align: center;
+}
+.cinema-root .cine-foot__links a {
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+.cinema-root .cine-foot__links a:hover {
+  color: var(--c-fg);
+}
+/* 34ch cabe a linha inteira em duas quebras limpas; mais estreito e "© 2026"
+   fica órfão na primeira linha */
 .cinema-root .cine-foot__copy {
-  width: 100%;
   margin: 0;
-  padding-top: var(--s-6);
+  justify-self: end;
+  text-align: right;
+  max-width: 34ch;
   color: var(--c-faint);
   letter-spacing: 0.2em;
+}
+/* o nó fecha a página, centrado, abaixo das três colunas */
+.cinema-root .cine-foot__sign {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--s-8);
+}
+/* Máscara em vez de <img> com filtro. O glyph tem núcleo quase branco e só a
+   franja ciano; a este tamanho o núcleo domina e qualquer `brightness` que
+   salve os filamentos estoura a cor para branco. Usando o alfa do arquivo como
+   máscara sobre uma chapa de `--c-signal`, o nó sai ciano por construção, em
+   qualquer tamanho. */
+.cinema-root .cine-foot__sign span {
+  display: block;
+  width: 52px;
+  height: 52px;
+  background: var(--c-signal);
+  -webkit-mask: url('/logo-mark.png') center / contain no-repeat;
+  mask: url('/logo-mark.png') center / contain no-repeat;
+}
+
+/* Estreito: as três colunas viram uma pilha centrada — lado a lado, a lista do
+   meio não teria largura para respirar.
+
+   Centralizar com `justify-items: center` seria o caminho óbvio e está errado:
+   ele dá aos blocos a largura do conteúdo, e aí a assinatura e o aviso de
+   direitos vazam da tela em vez de quebrar. Os blocos ocupam a coluna inteira
+   (o padrão do grid) e o que centra é o `text-align`. */
+@media (max-width: 860px) {
+  .cinema-root .cine-foot__grid {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+    gap: var(--s-8);
+  }
+  .cinema-root .cine-foot__copy {
+    justify-self: stretch;
+    text-align: center;
+    max-width: none;
+  }
+}
+/* a Syncopate é larguíssima: "MYCOREGENVERSE" no corpo padrão não cabe em 390px */
+@media (max-width: 480px) {
+  .cinema-root .cine-foot__mark {
+    font-size: clamp(1.05rem, 5.4vw, var(--step-2));
+  }
+  .cinema-root .cine-foot__tagline {
+    letter-spacing: 0.14em;
+  }
 }
 .cinema-root .cine-foot__mark {
   font-family: 'Syncopate', sans-serif;
@@ -1536,6 +1690,9 @@
 @media (max-width: 600px) {
   /* Syncopate uppercase é largo — a headline precisa caber sem quebrar */
   .cinema-root .cine-hero__headline { font-size: clamp(1rem, 4.7vw, 2.2rem); }
+  /* mesma razão na barra: "MYCOREGENVERSE" mais o glyph encostam no seletor de
+     idioma e no MENU a 375px. A marca acompanha a largura disponível. */
+  .cinema-root .cine-nav__mark { font-size: clamp(0.62rem, 2.9vw, 0.85rem); gap: 0.5em; }
   .cinema-root .cine-hero__headline h1 { letter-spacing: -0.05em; }
   .cinema-root .cine-hero__headline h1:first-child { font-size: 1.9em; }
   .cinema-root .cine-hero__ui { padding-inline: 16px; }
@@ -1550,4 +1707,198 @@
   .cinema-root [data-parallax] { transform: none !important; }
   .cinema-root .cine-hero__hint span:last-child,
   .cinema-root .cine-load__bar::after { animation: none; }
+}
+
+/* ============================================================
+   BOTÃO DE VIDRO — aparência única para todas as chamadas do site
+   ============================================================
+   Vale para `.btn` (páginas cinema), `.btn-glass` (páginas Tailwind) e as
+   setas do carrossel. Este arquivo é carregado em todas as páginas — o rodapé
+   o importa —, então a classe funciona em qualquer lugar.
+
+   Duas adaptações em relação ao modelo original, que foi desenhado para fundo
+   claro:
+
+   1. O texto é claro. No original ele é quase preto; sobre a chapa de vidro
+      deste site, que é branco a 16% sobre um fundo quase preto, texto escuro
+      simplesmente sumiria.
+   2. O anel animado é feito de branco em opacidades variáveis, não de preto.
+      No original o cônico alterna preto e transparente para desenhar o brilho
+      que gira; aqui o preto é invisível e o efeito se perderia.
+
+   O brilho que varre o botão é uma CAMADA DE FUNDO, não um elemento extra: o
+   modelo usa uma `<div class="button-shine">`, que exigiria mexer no HTML de
+   cada botão e ficaria POR CIMA do texto (pseudo-elemento posicionado pinta
+   acima de conteúdo não posicionado). Como camada de fundo com
+   `background-blend-mode: screen`, o brilho fica atrás do texto e nenhum botão
+   precisou mudar de marcação — nem o texto, nem o link.                      */
+
+@property --angle-1 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: -75deg;
+}
+@property --angle-2 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: -45deg;
+}
+
+.btn-glass,
+.cinema-root .btn,
+.cinema-root .rce-prev,
+.cinema-root .rce-next {
+  /* declarados também aqui: sem suporte a @property o `var()` ainda resolve,
+     e o botão fica com a aparência certa, só sem a animação do ângulo */
+  --angle-1: -75deg;
+  --angle-2: -45deg;
+  --ease-glass: cubic-bezier(0.25, 1, 0.5, 1);
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  /* `--c-fg` só existe dentro de `.cinema-root`, e `.btn-glass` também é usado
+     em páginas Tailwind que não têm esse contêiner — daí o valor de reserva */
+  color: var(--c-fg, hsl(0 0% 90%));
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+
+  /* camada 1: o brilho que varre. camada 2: a chapa de vidro. */
+  background-image:
+    linear-gradient(
+      var(--angle-2),
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 40% 50%,
+      rgba(255, 255, 255, 0) 55%
+    ),
+    linear-gradient(
+      -75deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.05)
+    );
+  background-size: 200% 200%, auto;
+  background-position: 0% 50%, 0 0;
+  background-repeat: no-repeat, no-repeat;
+  background-blend-mode: screen, normal;
+
+  box-shadow:
+    inset 0 0.125em 0.125em rgba(0, 0, 0, 0.3),
+    inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.16),
+    inset 0 0 0.1em 0.25em rgba(255, 255, 255, 0.05),
+    0 0.25em 0.125em -0.125em rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  -webkit-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  text-shadow: 0 0.06em 0.15em rgba(0, 0, 0, 0.55);
+
+  transition:
+    transform 400ms var(--ease-glass),
+    box-shadow 400ms var(--ease-glass),
+    background-position 500ms var(--ease-glass),
+    --angle-2 500ms var(--ease-glass);
+}
+
+/* anel de 1px: o cônico pinta a moldura e a máscara vaza o miolo */
+.btn-glass::after,
+.cinema-root .btn::after,
+.cinema-root .rce-prev::after,
+.cinema-root .rce-next::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  box-sizing: border-box;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--angle-1) at 50% 50%,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.14) 5% 40%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.14) 60% 95%,
+    rgba(255, 255, 255, 0.7)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: --angle-1 500ms ease;
+}
+
+.btn-glass:hover,
+.cinema-root .btn:hover,
+.cinema-root .rce-prev:hover,
+.cinema-root .rce-next:hover {
+  transform: scale(0.975);
+  background-position: 25% 50%, 0 0;
+  box-shadow:
+    inset 0 0.125em 0.125em rgba(0, 0, 0, 0.3),
+    inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.22),
+    inset 0 0 0.05em 0.1em rgba(255, 255, 255, 0.12),
+    0 0.15em 0.05em -0.1em rgba(0, 0, 0, 0.55);
+}
+.btn-glass:hover::after,
+.cinema-root .btn:hover::after,
+.cinema-root .rce-prev:hover::after,
+.cinema-root .rce-next:hover::after {
+  --angle-1: -125deg;
+}
+
+.btn-glass:active,
+.cinema-root .btn:active,
+.cinema-root .rce-prev:active,
+.cinema-root .rce-next:active {
+  transform: scale(0.95) rotate3d(1, 0, 0, 25deg);
+  --angle-2: -15deg;
+  background-position: 50% 15%, 0 0;
+  box-shadow:
+    inset 0 0.25em 0.05em 0 rgba(0, 0, 0, 0.4),
+    inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.16),
+    0 0.25em 0 0 rgba(255, 255, 255, 0.12);
+}
+.btn-glass:active::after,
+.cinema-root .btn:active::after,
+.cinema-root .rce-prev:active::after,
+.cinema-root .rce-next:active::after {
+  --angle-1: -75deg;
+}
+
+/* o foco por teclado precisa continuar visível — o anel animado não serve
+   como indicador porque também aparece no hover */
+.btn-glass:focus-visible,
+.cinema-root .btn:focus-visible,
+.cinema-root .rce-prev:focus-visible,
+.cinema-root .rce-next:focus-visible {
+  /* `--signal` é declarado no `:root` do index.css, então vale em qualquer página */
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glass,
+  .cinema-root .btn,
+  .cinema-root .rce-prev,
+  .cinema-root .rce-next {
+    transition: box-shadow 200ms linear;
+  }
+  .btn-glass:hover,
+  .cinema-root .btn:hover,
+  .cinema-root .rce-prev:hover,
+  .cinema-root .rce-next:hover,
+  .btn-glass:active,
+  .cinema-root .btn:active,
+  .cinema-root .rce-prev:active,
+  .cinema-root .rce-next:active {
+    transform: none;
+  }
 }

@@ -15,7 +15,7 @@ export default function NotFound() {
       <p className="font-sans text-muted-foreground mb-10">{t.notFound.sub}</p>
       <Link
         href="/"
-        className="font-mono text-xs tracking-[0.2em] uppercase border border-white/30 px-8 py-4 hover:bg-white hover:text-black transition-colors"
+        className="btn-glass font-mono text-xs tracking-[0.2em] uppercase px-8 py-4"
       >
         {t.notFound.back}
       </Link>

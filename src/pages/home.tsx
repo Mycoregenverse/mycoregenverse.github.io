@@ -127,7 +127,7 @@ export default function Home() {
         <div className="relative z-10">
           <FadeIn>
             <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tighter mb-12">Initialize<br />Contact</h2>
-            <a href="/connect" className="font-mono text-sm tracking-[0.2em] border border-white/30 px-8 py-4 hover:bg-white hover:text-black transition-all">
+            <a href="/connect" className="btn-glass font-mono text-sm tracking-[0.2em] px-8 py-4">
               ENTER THE NETWORK
             </a>
           </FadeIn>
