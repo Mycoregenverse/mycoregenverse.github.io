@@ -33,8 +33,12 @@ jobs:
 
       - name: Build
         run: pnpm build
-        env:
-          GITHUB_PAGES: 'true'
+
+      # SPA fallback: o Pages não faz rewrite de rotas. Servir o index.html
+      # como 404.html faz qualquer rota (/manifesto, /archive) carregar o app,
+      # que então resolve a rota no cliente.
+      - name: SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - uses: actions/upload-pages-artifact@v3
         with:

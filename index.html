@@ -4,21 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <!-- Restauração de rota do SPA no GitHub Pages: decodifica a rota que o
-         404.html guardou na query string e devolve a URL real antes do app
-         montar. Inócuo fora do Pages (só age quando a query começa com /?/). -->
-    <script>
-      (function () {
-        var l = window.location;
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function (s) {
-            return s.replace(/~and~/g, '&');
-          }).join('?');
-          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
-        }
-      })();
-    </script>
-
     <title>Mycoregenverse — Inteligência micelial e design bio-civilizacional</title>
     <meta
       name="description"
