@@ -4,9 +4,10 @@ import { SectionHeader } from '@/components/Typography';
 import { motion } from 'framer-motion';
 import { useLang } from '@/i18n';
 import { CinemaFooter } from '@/components/cinema/CinemaFooter';
+import { EMAILS, REDES, linkAgenda } from '@/content/contato';
 
 export default function Connect() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const c = t.connect;
 
   return (
@@ -29,21 +30,26 @@ export default function Connect() {
           </FadeIn>
 
           <FadeIn delay={0.3} className="space-y-12">
-            <div>
+            <div className="email-col">
               <SectionHeader label={c.directComm} className="mb-4" />
-              <a
-                href="mailto:mycoregenverse@proton.me"
-                className="font-display text-2xl md:text-3xl uppercase tracking-tighter hover:text-white/70 transition-colors"
-              >
-                mycoregenverse@proton.me
-              </a>
+              <div className="flex flex-col gap-3">
+                {EMAILS.map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="email-line font-display uppercase tracking-tighter hover:text-white/70 transition-colors"
+                  >
+                    {email}
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div>
               <SectionHeader label={c.frequencies} className="mb-4" />
               <div className="flex flex-col gap-4">
                 <a
-                  href="https://x.com/mycoregenverse"
+                  href={REDES.x}
                   target="_blank"
                   rel="noreferrer"
                   className="font-display text-2xl uppercase tracking-tighter hover:text-white/70 transition-colors"
@@ -51,7 +57,7 @@ export default function Connect() {
                   X : @mycoregenverse
                 </a>
                 <a
-                  href="https://instagram.com/mycoregenverse"
+                  href={REDES.instagram}
                   target="_blank"
                   rel="noreferrer"
                   className="font-display text-2xl uppercase tracking-tighter hover:text-white/70 transition-colors"
@@ -59,7 +65,7 @@ export default function Connect() {
                   IG : @mycoregenverse
                 </a>
                 <a
-                  href="https://mycoregenverse.substack.com"
+                  href={REDES.substack}
                   target="_blank"
                   rel="noreferrer"
                   className="font-display text-2xl uppercase tracking-tighter hover:text-white/70 transition-colors"
@@ -71,7 +77,7 @@ export default function Connect() {
 
             <div className="pt-8">
               <a
-                href="https://koalendar.com/e/reuniao-com-catito-dev-mycoregenverse"
+                href={linkAgenda(lang)}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-glass font-mono text-sm tracking-[0.2em] px-8 py-4 uppercase"

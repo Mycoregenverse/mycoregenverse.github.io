@@ -28,6 +28,43 @@ interface Meta {
   description: string;
   /** Rotas duplicadas ou sem valor de busca saem do índice. */
   noindex?: boolean;
+  /** Dados estruturados próprios da rota (além do grafo fixo do index.html). */
+  ld?: Record<string, unknown>[];
+  ogType?: 'website' | 'article';
+}
+
+const ORG = { '@id': `${SITE_URL}/#organization` };
+const WEBSITE = { '@id': `${SITE_URL}/#website` };
+
+function urlDe(caminho: string): string {
+  const semBarra = caminho.replace(/\/+$/, '');
+  return SITE_URL + (semBarra === '' ? '/' : `${semBarra}/`);
+}
+
+/** Trilha de navegação: buscadores mostram no resultado, e modelos usam para situar a página. */
+function trilha(itens: { nome: string; caminho: string }[]): Record<string, unknown> {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: itens.map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: it.nome,
+      item: urlDe(it.caminho),
+    })),
+  };
+}
+
+function pagina(tipo: string, caminho: string, nome: string, descricao: string, lang: Lang) {
+  return {
+    '@type': tipo,
+    '@id': `${urlDe(caminho)}#webpage`,
+    url: urlDe(caminho),
+    name: nome,
+    description: descricao,
+    inLanguage: lang === 'pt' ? 'pt-BR' : 'en',
+    isPartOf: WEBSITE,
+    about: ORG,
+  };
 }
 
 /** Uma linha, sem quebras, dentro do que buscadores exibem. */
@@ -44,15 +81,19 @@ function comMarca(titulo: string): string {
 
 export function metaForRoute(path: string, t: Translations, lang: Lang): Meta {
   const seg = path.replace(/\/+$/, '').split('/').filter(Boolean);
+  const inicio = lang === 'pt' ? 'Início' : 'Home';
 
   if (seg.length === 0) {
+    const title = comMarca(
+      lang === 'pt'
+        ? 'Inteligência micelial e design bio-civilizacional'
+        : 'Mycelial intelligence and bio-civilizational design',
+    );
+    const description = resumir(t.home.hero.coda);
     return {
-      title: comMarca(
-        lang === 'pt'
-          ? 'Inteligência micelial e design bio-civilizacional'
-          : 'Mycelial intelligence and bio-civilizational design',
-      ),
-      description: resumir(t.home.hero.coda),
+      title,
+      description,
+      ld: [{ ...pagina('WebPage', '/', title, description, lang), primaryImageOfPage: OG_IMAGE }],
     };
   }
 
@@ -61,31 +102,134 @@ export function metaForRoute(path: string, t: Translations, lang: Lang): Meta {
     case 'classic':
       return { title: comMarca(t.nav.wordmark), description: resumir(t.home.hero.coda), noindex: true };
 
-    case 'manifesto':
-      return { title: comMarca(t.manifesto.open.title), description: resumir(t.manifesto.open.lead) };
-
-    case 'field-notes': {
-      if (!seg[1]) return { title: comMarca(t.fieldNotes.title), description: resumir(t.fieldNotes.subtitle) };
-      const ensaio = t.fieldNotes.essays.find((e) => e.slug === seg[1]);
-      if (!ensaio) return { title: comMarca(t.fieldNotes.title), description: resumir(t.fieldNotes.subtitle), noindex: true };
-      return { title: comMarca(ensaio.title), description: resumir(ensaio.excerpt) };
+    case 'manifesto': {
+      const description = resumir(t.manifesto.open.lead);
+      return {
+        title: comMarca(t.manifesto.open.title),
+        description,
+        ld: [
+          pagina('WebPage', path, t.manifesto.open.title, description, lang),
+          trilha([{ nome: inicio, caminho: '/' }, { nome: 'Manifesto', caminho: '/manifesto' }]),
+        ],
+      };
     }
 
-    case 're-sources':
-      if (seg[1] === 'bibliografia')
-        return { title: comMarca(t.bibliography.title), description: resumir(t.bibliography.subtitle) };
-      return { title: comMarca(t.reSources.title), description: resumir(t.reSources.subtitle) };
+    case 'field-notes': {
+      const nivel1 = { nome: t.fieldNotes.title, caminho: '/field-notes' };
+      if (!seg[1]) {
+        const description = resumir(t.fieldNotes.subtitle);
+        return {
+          title: comMarca(t.fieldNotes.title),
+          description,
+          ld: [
+            pagina('CollectionPage', path, t.fieldNotes.title, description, lang),
+            trilha([{ nome: inicio, caminho: '/' }, nivel1]),
+          ],
+        };
+      }
+      const ensaio = t.fieldNotes.essays.find((e) => e.slug === seg[1]);
+      if (!ensaio) return { title: comMarca(t.fieldNotes.title), description: resumir(t.fieldNotes.subtitle), noindex: true };
+      const description = resumir(ensaio.excerpt);
+      return {
+        title: comMarca(ensaio.title),
+        description,
+        ogType: 'article',
+        ld: [
+          {
+            '@type': 'Article',
+            '@id': `${urlDe(path)}#article`,
+            headline: ensaio.title,
+            description,
+            datePublished: ensaio.iso,
+            articleSection: ensaio.category,
+            inLanguage: lang === 'pt' ? 'pt-BR' : 'en',
+            url: urlDe(path),
+            mainEntityOfPage: urlDe(path),
+            image: OG_IMAGE,
+            author: ORG,
+            publisher: ORG,
+            isPartOf: WEBSITE,
+            license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+          },
+          trilha([{ nome: inicio, caminho: '/' }, nivel1, { nome: ensaio.title, caminho: path }]),
+        ],
+      };
+    }
+
+    case 're-sources': {
+      const nivel1 = { nome: t.reSources.title, caminho: '/re-sources' };
+      if (seg[1] === 'bibliografia') {
+        const description = resumir(t.bibliography.subtitle);
+        return {
+          title: comMarca(t.bibliography.title),
+          description,
+          ld: [
+            pagina('CollectionPage', path, t.bibliography.title, description, lang),
+            trilha([{ nome: inicio, caminho: '/' }, nivel1, { nome: t.bibliography.title, caminho: path }]),
+          ],
+        };
+      }
+      const description = resumir(t.reSources.subtitle);
+      return {
+        title: comMarca(t.reSources.title),
+        description,
+        ld: [
+          pagina('CollectionPage', path, t.reSources.title, description, lang),
+          trilha([{ nome: inicio, caminho: '/' }, nivel1]),
+        ],
+      };
+    }
 
     case 'archive': {
-      if (!seg[1]) return { title: comMarca(t.archive.title), description: resumir(t.archive.subtitle) };
+      const nivel1 = { nome: t.archive.title, caminho: '/archive' };
+      if (!seg[1]) {
+        const description = resumir(t.archive.subtitle);
+        return {
+          title: comMarca(t.archive.title),
+          description,
+          ld: [
+            pagina('CollectionPage', path, t.archive.title, description, lang),
+            trilha([{ nome: inicio, caminho: '/' }, nivel1]),
+          ],
+        };
+      }
       /* As rotas de detalhe usam o nome do projeto slugificado. */
       const projeto = t.archive.projects.find((p) => slugify(p.name) === seg[1]);
       if (!projeto) return { title: comMarca(t.archive.title), description: resumir(t.archive.subtitle), noindex: true };
-      return { title: comMarca(projeto.name), description: resumir(projeto.desc) };
+      const description = resumir(projeto.desc);
+      return {
+        title: comMarca(projeto.name),
+        description,
+        ld: [
+          /* Proposta, não caso entregue — o tipo genérico evita prometer o que não é. */
+          {
+            '@type': 'CreativeWork',
+            '@id': `${urlDe(path)}#work`,
+            name: projeto.name,
+            description,
+            inLanguage: lang === 'pt' ? 'pt-BR' : 'en',
+            url: urlDe(path),
+            creator: ORG,
+            isPartOf: WEBSITE,
+            license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+          },
+          trilha([{ nome: inicio, caminho: '/' }, nivel1, { nome: projeto.name, caminho: path }]),
+        ],
+      };
     }
 
-    case 'connect':
-      return { title: comMarca(t.connect.title.replace(/\n/g, ' ')), description: resumir(t.connect.body1) };
+    case 'connect': {
+      const titulo = t.connect.title.replace(/\n/g, ' ');
+      const description = resumir(t.connect.body1);
+      return {
+        title: comMarca(titulo),
+        description,
+        ld: [
+          { ...pagina('ContactPage', path, titulo, description, lang), mainEntity: ORG },
+          trilha([{ nome: inicio, caminho: '/' }, { nome: titulo, caminho: '/connect' }]),
+        ],
+      };
+    }
 
     default:
       return { title: comMarca(t.notFound.sub), description: resumir(t.home.hero.coda), noindex: true };
@@ -120,7 +264,7 @@ function metaProp(prop: string, valor: string) {
 
 export function useDocumentMeta(path: string, t: Translations, lang: Lang) {
   useEffect(() => {
-    const { title, description, noindex } = metaForRoute(path, t, lang);
+    const { title, description, noindex, ld, ogType } = metaForRoute(path, t, lang);
     /* Com barra no fim. Cada rota é publicada como `<rota>/index.html`, e o
        Pages responde 301 de `/manifesto` para `/manifesto/`. Declarar a versão
        sem barra faria a canônica apontar para um endereço que redireciona —
@@ -144,6 +288,24 @@ export function useDocumentMeta(path: string, t: Translations, lang: Lang) {
     }
     canonical.href = url;
 
+    /* Grafo da rota num <script> próprio, separado do grafo fixo do index.html.
+       A pré-renderização grava o DOM já montado, então isto chega no HTML
+       estático de cada página — inclusive para robôs que não rodam JS. */
+    let script = document.head.querySelector<HTMLScriptElement>('script#ld-rota');
+    if (ld && ld.length && !noindex) {
+      if (!script) {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'ld-rota';
+        document.head.appendChild(script);
+      }
+      /* `<` escapado: nenhum texto de conteúdo consegue fechar o <script> antes da hora. */
+      script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': ld }).replace(/</g, '\\u003c');
+    } else if (script) {
+      script.remove();
+    }
+
+    metaProp('og:type', ogType ?? 'website');
     metaProp('og:title', title);
     metaProp('og:description', description);
     metaProp('og:url', url);

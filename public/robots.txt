@@ -1,4 +1,21 @@
 User-agent: *
 Allow: /
 
+# Buscadores e assistentes que respondem com fontes: acesso explícito,
+# para o site poder ser lido e citado.
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot-Extended
+User-agent: DuckAssistBot
+Allow: /
+
 Sitemap: https://mycoregenverse.github.io/sitemap.xml

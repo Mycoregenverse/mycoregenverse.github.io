@@ -1359,11 +1359,17 @@
     letter-spacing: 0.14em;
   }
 }
+/* A assinatura mede ~12,7em de largura. Entre ~860px e ~1150px a coluna da
+   esquerda fica mais estreita que isso e a palavra invadia a lista de links.
+   A fonte passa a acompanhar a própria coluna (cqi), com o teto de antes. */
+.cinema-root .cine-foot__brand {
+  container-type: inline-size;
+}
 .cinema-root .cine-foot__mark {
   font-family: 'Syncopate', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: var(--step-2);
+  font-size: min(var(--step-2), 7.6cqi);
   letter-spacing: -0.03em;
 }
 

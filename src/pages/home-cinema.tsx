@@ -10,6 +10,7 @@ import { Reveal, CountUp, useParallax } from '@/components/cinema/motion';
 import { RedeCarousel } from '@/components/cinema/RedeCarousel';
 import { MetodoScene } from '@/components/cinema/MetodoScene';
 import { slugify } from '@/content/slugify';
+import { EMAILS, REDES, linkAgenda } from '@/content/contato';
 
 const REDE_IMAGES = ['/section-roots.jpg', '/section-forest.jpg', '/section-spores.jpg', '/archive-header.jpg'];
 
@@ -30,7 +31,7 @@ function Band({ src, cap }: { src: string; cap: string }) {
 }
 
 export default function HomeCinema() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const h = t.home;
   const [ready, setReady] = useState(false);
 
@@ -325,22 +326,27 @@ export default function HomeCinema() {
               <p>{h.conectar.body2}</p>
             </Reveal>
           </div>
-          <div>
+          <div className="email-col">
             <Reveal>
               <p className="label">{h.conectar.directLabel}</p>
-              <a
-                href="mailto:mycoregenverse@proton.me"
-                className="display"
-                style={{ fontSize: 'var(--step-1)', display: 'block', margin: 'var(--s-2) 0 var(--s-8)' }}
-              >
-                mycoregenverse@proton.me
-              </a>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s-2)', margin: 'var(--s-2) 0 var(--s-8)' }}>
+                {EMAILS.map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="display email-line"
+                    style={{ '--email-max': 'var(--step-1)' } as React.CSSProperties}
+                  >
+                    {email}
+                  </a>
+                ))}
+              </div>
             </Reveal>
             <Reveal delay={1}>
               <p className="label">{h.conectar.freqLabel}</p>
               <div style={{ display: 'flex', gap: 'var(--s-4)', margin: 'var(--s-2) 0 var(--s-8)' }}>
                 <a
-                  href="https://x.com/mycoregenverse"
+                  href={REDES.x}
                   target="_blank"
                   rel="noreferrer"
                   className="display"
@@ -349,7 +355,7 @@ export default function HomeCinema() {
                   X ↗
                 </a>
                 <a
-                  href="https://instagram.com/mycoregenverse"
+                  href={REDES.instagram}
                   target="_blank"
                   rel="noreferrer"
                   className="display"
@@ -361,7 +367,7 @@ export default function HomeCinema() {
             </Reveal>
             <Reveal delay={2}>
               <a
-                href="https://koalendar.com/e/reuniao-com-catito-dev-mycoregenverse"
+                href={linkAgenda(lang)}
                 target="_blank"
                 rel="noreferrer"
                 className="btn"

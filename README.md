@@ -153,11 +153,11 @@ cultura e lugar — a rede está aberta.
 
 <br>
 
-<a href="https://koalendar.com/e/reuniao-com-catito-dev-mycoregenverse"><img src="https://img.shields.io/badge/agendar%20uma%20transmiss%C3%A3o-%E2%86%92-059669?style=for-the-badge&labelColor=080808" alt="Agendar uma transmissão"></a>
+<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Transmiss%C3%A3o+%C2%B7+Mycoregenverse&amp;details=Primeira+conversa+com+o+Mycoregenverse.%0A%0AEscolha+o+dia+e+o+hor%C3%A1rio+que+funcionam+para+voc%C3%AA+e+salve+o+evento%3A+o+convite+chega+para+mycoregenverse%40gmail.com+e+a+confirma%C3%A7%C3%A3o+volta+por+e-mail.%0A%0ASe+puder%2C+adicione+uma+videochamada+do+Google+Meet+antes+de+salvar.&amp;add=mycoregenverse%40gmail.com"><img src="https://img.shields.io/badge/agendar%20uma%20transmiss%C3%A3o-%E2%86%92-059669?style=for-the-badge&labelColor=080808" alt="Agendar uma transmissão"></a>
 
 <br>
 
-`mycoregenverse@proton.me`
+`mycoregenverse@proton.me` · `mycoregenverse@gmail.com`
 
 </div>
 

@@ -284,6 +284,22 @@
   overflow-wrap: break-word;
 }
 
+/* E-mail não pode partir no meio ("…@PR / OTON.ME"). Fica numa linha só e a
+   fonte acompanha a largura da coluna, medida pela própria coluna (cqi), não
+   pela tela — no desktop a coluna é metade da grade. O teto vem de --email-max,
+   definido em quem usa. */
+.email-col {
+  container-type: inline-size;
+}
+.email-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  font-size: min(var(--email-max, 1.875rem), 5cqi);
+}
+
 @layer utilities {
   .text-shadow-sm {
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);

@@ -41,6 +41,7 @@
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mycoregenverse" />
     <meta name="twitter:title" content="Mycoregenverse — Inteligência micelial e design bio-civilizacional" />
     <meta
       name="twitter:description"
@@ -59,7 +60,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Dados estruturados: como buscadores e modelos de linguagem entendem o site -->
+    <!-- Dados estruturados: como buscadores e modelos de linguagem entendem o site.
+         Aqui fica só o que vale para todas as páginas (site e organização); o
+         nó de cada página é gravado por src/seo.ts em script#ld-rota. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -81,6 +84,27 @@
             "logo": "https://mycoregenverse.github.io/icon-512.png",
             "image": "https://mycoregenverse.github.io/og-image.jpg",
             "email": "mycoregenverse@proton.me",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "email": "mycoregenverse@proton.me",
+                "availableLanguage": ["Portuguese", "English"]
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "sales",
+                "email": "mycoregenverse@gmail.com",
+                "url": "https://mycoregenverse.github.io/connect/",
+                "availableLanguage": ["Portuguese", "English"]
+              }
+            ],
+            "sameAs": [
+              "https://x.com/mycoregenverse",
+              "https://instagram.com/mycoregenverse",
+              "https://mycoregenverse.substack.com",
+              "https://github.com/Mycoregenverse"
+            ],
             "description": "Prática de tradução de restrições biológicas — observadas em redes micorrízicas e ecologias de floresta antiga — em sistemas humanos, em quatro frentes: design de bio-sistemas, cultura regenerativa, finanças emergentes e arquitetura narrativa.",
             "knowsAbout": [
               "Inteligência micelial",
@@ -92,16 +116,6 @@
               "Governança de bens comuns",
               "Conhecimento baseado no lugar"
             ]
-          },
-          {
-            "@type": "WebPage",
-            "@id": "https://mycoregenverse.github.io/#webpage",
-            "url": "https://mycoregenverse.github.io/",
-            "name": "Mycoregenverse — Inteligência micelial e design bio-civilizacional",
-            "isPartOf": { "@id": "https://mycoregenverse.github.io/#website" },
-            "about": { "@id": "https://mycoregenverse.github.io/#organization" },
-            "primaryImageOfPage": "https://mycoregenverse.github.io/og-image.jpg",
-            "inLanguage": "pt-BR"
           }
         ]
       }
